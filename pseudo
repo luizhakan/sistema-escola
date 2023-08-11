@@ -1,0 +1,59 @@
+- cabeçalho [Sistema Escola] - fundo azul e letra branca
+
+Construir CRUD Cadastro de Curso
+
+página curso tem que ter um input para pesquisar nome, e um botão para pesquisar, fundo azul e letra branca
+
+tabela com 6 colunas, e cada coluna tem um cabeçalho
+os cabeçalhos são os seguintes:
+- código
+- nome
+- instrutor
+- local
+- carga horária
+- data início
+
+página cursoIncluir
+- input para nome
+- input para instrutor
+- input para local
+- input carga horária
+- input data início
+- botão para incluir
+- botão para voltar
+
+Construir CRUD Cadastro de Aluno
+
+página aluno tem que ter que um input para pesquisar nome, e um botão para pesquisar, fundo azul e letra branca
+
+tabela com 3 colunas, e cada coluna tem um cabeçalho
+os cabeçalhos são os seguintes:
+- código
+- nome
+- data nascimento
+
+página alunoIncluir
+- input para nome
+- input para data nascimento
+- botão para incluir
+- botão para voltar
+
+Construir CRUD Cadastro de Matrícula
+página matrícula tem que ter um dropdown com os alunos, e um botão para pesquisar, fundo azul e letra branca
+
+tabela com 2 colunas, e cada coluna tem um cabeçalho
+os cabeçalhos são os seguintes:
+- código
+- nome
+
+página matriculaIncluir
+- dropdown para o aluno selecionado
+componente adicionar curso, e neste componente tem que ter o seguinte:
+dropdown com os cursos disponíveis, e a data de matrícula para atribuir ao aluno, e um botão de adicionar, fundo azul e letra branca
+
+e no final, uma tabela com três colunas, e cada coluna tem um cabeçalho, os cabeçalhos são os seguintes:
+- curso
+- data matrícula
+- um botão X para remover a matrícula
+
+no final um botão de incluir e voltar
