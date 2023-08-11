@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-linha-tabela',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./linha-tabela.component.css']
 })
 export class LinhaTabelaComponent implements OnInit {
+  @Input() dados: any[] = [];
 
   constructor() { }
 

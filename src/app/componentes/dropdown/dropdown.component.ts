@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+// dropdown.component.ts
+
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'app-dropdown',
-  templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.css']
+  selector: "app-dropdown",
+  templateUrl: "./dropdown.component.html",
+  styleUrls: ["./dropdown.component.css"],
 })
-export class DropdownComponent implements OnInit {
+export class DropdownComponent {
+  @Input() items: string[] = [];
+  selectedItem: string | undefined;
+  isOpen = false;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  toggleDropdown() {
+    this.isOpen = !this.isOpen;
   }
 
+  selectItem(item: string) {
+    this.selectedItem = item;
+    this.isOpen = false;
+  }
 }
