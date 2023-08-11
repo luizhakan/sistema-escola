@@ -1,0 +1,29 @@
+* {
+    margin: .5rem;
+}
+
+div.container {
+  display: flex;
+  flex-direction: column;
+}
+
+div.container > label {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+div.container > input {
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.5;
+  border-radius: 5px;
+}
+
+div.container > button {
+  background: #35afd7;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 7rem;
+  border-radius: 0.5rem;
+}
