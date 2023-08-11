@@ -4,7 +4,7 @@ Este é um sistema de gerenciamento escolar desenvolvido em Angular. O sistema p
 
 ## Elementos
 
-- [] Componentes Básicos:
+- [x] Componentes Básicos:
   - [x] Cabecalho
   - [x] EntradaPesquisa
   - [x] CabecalhoTabela
