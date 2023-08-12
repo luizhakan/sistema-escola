@@ -1,1 +1,54 @@
-<p>formulario-curso works!</p>
+<div class="container">
+  <form #cursoForm="ngForm">
+    <div>
+      <label for="nome">Nome: <br /></label>
+      <input type="text" name="nome" id="nome" [(ngModel)]="nome" />
+    </div>
+
+    <div>
+      <label for="instrutor">Instrutor: <br /></label>
+      <input
+        type="text"
+        name="instrutor"
+        id="instrutor"
+        [(ngModel)]="instrutor"
+      />
+    </div>
+
+    <div>
+      <label for="local">Local: <br /></label>
+      <input type="text" name="local" id="local" [(ngModel)]="local" />
+    </div>
+
+    <div class="dois">
+      <div>
+        <label for="cargaHoraria">Carga Horária: <br /></label>
+        <input
+          type="number"
+          name="cargaHoraria"
+          id="cargaHoraria"
+          [(ngModel)]="cargaHoraria"
+        />
+      </div>
+      <div>
+        <label for="dataInicio">Data Início: <br /></label>
+        <input
+          type="date"
+          name="dataInicio"
+          id="dataInicio"
+          [(ngModel)]="dataInicio"
+        />
+      </div>
+    </div>
+    <br />
+
+    <div class="botoes">
+      <app-botao
+        texto="Incluir"
+        (click)="adicionarCurso(cursoForm.value)"
+        routerLink="/cursos"
+      ></app-botao>
+      <app-botao texto="Voltar" routerLink="/cursos"></app-botao>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: .5rem;
+}
+
+.botao-dinamico {
+  background: blue;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 7rem;
+  border-radius: 0.2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.botao-dinamico:hover {
+  background: darkblue;
+}

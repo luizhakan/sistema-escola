@@ -1,1 +1,30 @@
-<p>pagina-alunos works!</p>
+<div class="container">
+  <app-entrada-pesquisa></app-entrada-pesquisa>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Nome</th>
+        <th>Data Nascimento</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of dadosFormatados; let i = index">
+        <td>{{ row.codigo }}</td>
+        <td>{{ row.nome }}</td>
+        <td>{{ row.dataNascimento.toLocaleDateString() }}</td>
+        <td>
+          <input type="checkbox" [(ngModel)]="row.selecionado" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="botoes">
+    <app-botao texto="Incluir" routerLink="/adicionarAlunos"></app-botao>
+    <app-botao texto="Alterar" (click)="alterarAlunos()">Alterar</app-botao>
+    <app-botao texto="Excluir" (click)="excluirAlunos()">Excluir</app-botao>
+  </div>
+</div>

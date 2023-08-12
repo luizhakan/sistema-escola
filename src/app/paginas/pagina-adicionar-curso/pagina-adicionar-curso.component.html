@@ -1,1 +1,4 @@
-<p>pagina-adicionar-curso works!</p>
+<div class="container">
+  <h2>Curso - {{ cursoSelecionado ? "Editar" : "Incluir" }}</h2>
+  <app-formulario-curso [curso]="cursoSelecionado"></app-formulario-curso>
+</div>

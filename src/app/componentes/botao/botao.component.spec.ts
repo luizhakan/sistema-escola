@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LinhaTabelaComponent } from './linha-tabela.component';
+import { BotaoComponent } from './botao.component';
 
-describe('LinhaTabelaComponent', () => {
-  let component: LinhaTabelaComponent;
-  let fixture: ComponentFixture<LinhaTabelaComponent>;
+describe('BotaoComponent', () => {
+  let component: BotaoComponent;
+  let fixture: ComponentFixture<BotaoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LinhaTabelaComponent ]
+      declarations: [ BotaoComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LinhaTabelaComponent);
+    fixture = TestBed.createComponent(BotaoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

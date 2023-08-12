@@ -1,1 +1,24 @@
-<p>pagina-matriculas works!</p>
+<div class="container">
+  <h2>Matrícula</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Selecionar</th>
+        <th>Código</th>
+        <th>Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of dadosFormatados">
+        <td><input type="checkbox" [(ngModel)]="row.selecionado" /></td>
+        <td>{{ row.codigo }}</td>
+        <td>{{ row.nome }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="botoes">
+    <app-botao texto="Incluir" routerLink="/adicionarMatriculas"></app-botao>
+  </div>
+</div>

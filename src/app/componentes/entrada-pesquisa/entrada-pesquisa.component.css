@@ -1,29 +1,31 @@
 * {
-    margin: .5rem;
+  margin: 0.5rem;
 }
 
-div.container {
+.container {
   display: flex;
   flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 1rem;
 }
 
-div.container > label {
+.container label {
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-div.container > input {
+.container input {
   font-size: 1.5rem;
   font-weight: bold;
   opacity: 0.5;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  padding: 0.5rem;
+  outline: none;
+  transition: opacity 0.3s;
 }
 
-div.container > button {
-  background: #35afd7;
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  width: 7rem;
-  border-radius: 0.5rem;
+.container input:focus {
+  opacity: 1;
 }

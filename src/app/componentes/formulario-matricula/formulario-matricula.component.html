@@ -1,1 +1,22 @@
-<p>formulario-matricula works!</p>
+<div class="container">
+  <h2>Adicionar Curso para {{ alunoSelecionado }}</h2>
+
+  <form>
+    <div class="dois">
+      <label for="curso">Curso: <br /></label>
+      <app-dropdown [items]="cursos" id="curso"></app-dropdown>
+    </div>
+    <div class="dois">
+      <label for="dataMatricula">Data Matrícula: <br /></label>
+      <input
+        type="date"
+        name="dataMatricula"
+        [(ngModel)]="dataMatricula"
+        id="dataMatricula"
+      />
+    </div>
+    <div class="botoes">
+      <app-botao texto="Adicionar" (click)="adicionarMatricula()"></app-botao>
+    </div>
+  </form>
+</div>
