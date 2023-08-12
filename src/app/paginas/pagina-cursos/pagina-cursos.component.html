@@ -1,1 +1,44 @@
-<p>pagina-cursos works!</p>
+<div class="container">
+  <app-entrada-pesquisa></app-entrada-pesquisa>
+
+  <table *ngIf="dados.length > 0; else semCursos">
+    <thead>
+      <tr>
+        <th>Selecionar</th>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Instrutor</th>
+        <th>Local</th>
+        <th>Carga Horária</th>
+        <th>Data Início</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of dados">
+        <td><input type="checkbox" [(ngModel)]="row.selecionado" /></td>
+        <td>{{ row.codigo }}</td>
+        <td>{{ row.nome }}</td>
+        <td>{{ row.instrutor }}</td>
+        <td>{{ row.local }}</td>
+        <td>{{ row.cargaHoraria }}</td>
+        <td>{{ row.dataInicio | date : "dd/MM/yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #semCursos>
+    <p>Não há cursos disponíveis.</p>
+  </ng-template>
+
+  <div class="botoes">
+    <app-botao texto="Incluir" routerLink="/adicionarCursos"></app-botao>
+    <app-botao
+      (click)="redirecionarParaAdicionarCurso()"
+      texto="Alterar"
+    ></app-botao>
+    <app-botao
+      (click)="excluirCursosSelecionados()"
+      texto="Excluir"
+    ></app-botao>
+  </div>
+</div>

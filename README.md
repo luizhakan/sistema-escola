@@ -10,34 +10,35 @@ Este é um sistema de gerenciamento escolar desenvolvido em Angular. O sistema p
   - [x] CabecalhoTabela
   - [x] LinhaTabela
   - [x] Dropdown
+  - [x] Menu lateral com os links: curso, aluno e matrícula
   
 - [] Diretiva de Validação:
   - [] Validacao
   
-- [] Páginas de Listagem:
-  - [] PaginaCursos
-  - [] PaginaAlunos
-  - [] PaginaMatriculas
+- [x] Páginas de Listagem:
+  - [x] PaginaCursos
+  - [x] PaginaAlunos
+  - [x] PaginaMatriculas
   
 - [] Serviço de API Simulado:
-  - [] ServicoAPI
+  - [] ServicoAPI usando localStorage
   
-- [] Formulários de Inclusão:
-  - [] FormularioCurso
-  - [] FormularioAluno
-  - [] FormularioMatricula
+- [x] Formulários de Inclusão:
+  - [x] FormularioCurso
+  - [x] FormularioAluno
+  - [x] FormularioMatricula
   
-- [] Páginas de Inclusão:
-  - [] PaginaAdicionarCurso
-  - [] PaginaAdicionarAluno
-  - [] PaginaAdicionarMatricula
+- [x] Páginas de Inclusão:
+  - [x] PaginaAdicionarCurso
+  - [x] PaginaAdicionarAluno
+  - [x] PaginaAdicionarMatricula
   
-- [] Página de Matrículas:
-  - [] PaginaMatriculas
+- [x] Página de Matrículas:
+  - [x] PaginaMatriculas
   
-- [] Página de Adicionar Matrícula:
-  - [] PaginaAdicionarMatricula
+- [x] Página de Adicionar Matrícula:
+  - [x] PaginaAdicionarMatricula
   
-- [] Módulo de Rotas:
-  - [] Rotas
+- [x] Módulo de Rotas:
+  - [x] Rotas
 ---

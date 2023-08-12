@@ -1,0 +1,47 @@
+.container {
+  margin: 1rem;
+}
+
+.botoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+thead th {
+  background-color: #f2f2f2;
+}
+
+tbody td {
+  background-color: #fff;
+}
+
+tbody tr:nth-child(odd) td {
+  background-color: #f2f2f2;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  table {
+    font-size: 12px;
+  }
+  th,
+  td {
+    padding: 5px;
+  }
+}

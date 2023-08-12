@@ -1,0 +1,43 @@
+div.container {
+  display: flex;
+  flex-direction: column;
+
+  margin: 1rem;
+}
+
+div.botoes {
+  display: flex;
+}
+
+/* Estilos para a tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/* Estilos para os cabeçalhos da tabela */
+th {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+/* Estilos para as células da tabela */
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+/* Estilos para as células da tabela do corpo (tbody) */
+tbody td {
+  background-color: #fff;
+}
+
+/* Estilos para linhas ímpares do corpo da tabela */
+tbody tr:nth-child(odd) td {
+  background-color: #f2f2f2;
+}

@@ -1,25 +1,13 @@
 <app-cabecalho></app-cabecalho>
-<app-entrada-pesquisa></app-entrada-pesquisa>
-<app-cabecalho-tabela
-  [colunas]="[
-    'Código',
-    'Nome',
-    'Instrutor',
-    'Local',
-    'Carga Horária',
-    'Data Início'
-  ]"
-></app-cabecalho-tabela>
-<app-linha-tabela
-  [dados]="[
-    '001',
-    'Curso de Matemática',
-    'João Silva',
-    'Sala 101',
-    '40 horas',
-    '2023-09-01'
-  ]"
-></app-linha-tabela>
-<app-dropdown
-  [items]="['Luiz Hakan', 'André Siqueira', 'Augusto Dias']"
-></app-dropdown>
+<div class="container">
+    <nav class="menu-lateral">
+      <ul>
+        <li><a routerLink="/cursos">Cursos</a></li>
+        <li><a routerLink="/alunos">Alunos</a></li>
+        <li><a routerLink="/matriculas">Matrículas</a></li>
+      </ul>
+    </nav>
+    <div class="content">
+     <router-outlet></router-outlet>
+    </div>
+  </div>

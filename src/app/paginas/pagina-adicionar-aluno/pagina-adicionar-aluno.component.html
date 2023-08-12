@@ -1,1 +1,20 @@
-<p>pagina-adicionar-aluno works!</p>
+<div class="container">
+  <h2>Aluno - Incluir</h2>
+
+  <form>
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" id="nome" [(ngModel)]="novoAluno.nome" />
+    <label for="dataNascimento">Data Nascimento:</label>
+    <input
+      type="date"
+      name="dataNascimento"
+      id="dataNascimento"
+      [(ngModel)]="novoAluno.dataNascimento"
+    />
+  </form>
+
+  <div class="botoes">
+    <app-botao class="botao-dinamico" texto="Incluir" routerLink="/alunos" (click)="adicionarAluno()"></app-botao>
+    <app-botao texto="Voltar" routerLink="/alunos"></app-botao>
+  </div>
+</div>
