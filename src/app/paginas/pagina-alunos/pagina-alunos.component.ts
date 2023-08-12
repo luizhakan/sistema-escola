@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { EntradaPesquisaComponent } from "src/app/componentes/entrada-pesquisa/entrada-pesquisa.component";
 
 @Component({
   selector: "app-pagina-alunos",
@@ -12,6 +13,9 @@ export class PaginaAlunosComponent implements OnInit {
     dataNascimento: Date;
     selecionado: boolean;
   }[];
+
+  @ViewChild(EntradaPesquisaComponent, { static: true })
+  entradaPesquisaComponent!: EntradaPesquisaComponent;
 
   constructor() {
     this.dadosFormatados = [];
@@ -39,6 +43,20 @@ export class PaginaAlunosComponent implements OnInit {
         selecionado: false, // Adicione a propriedade selecionado
       };
     });
+  }
+
+  // filtro aplicado
+  filtrarAlunos() {
+    // se o termo de pesquisa estiver vazio, retorne todos os alunos, se não, retorne apenas os alunos que contém o termo de pesquisa
+    const termoPesquisa = this.entradaPesquisaComponent.termoPesquisa;
+    if (!termoPesquisa) {
+      this.carregarAlunos();
+      return;
+    } else {
+      this.dadosFormatados = this.dadosFormatados.filter((aluno) => {
+        return aluno.nome.toLowerCase().includes(termoPesquisa.toLowerCase());
+      });
+    }
   }
 
   excluirAlunos() {

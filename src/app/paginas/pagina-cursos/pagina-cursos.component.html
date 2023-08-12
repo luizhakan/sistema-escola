@@ -1,5 +1,7 @@
 <div class="container">
-  <app-entrada-pesquisa></app-entrada-pesquisa>
+  <app-entrada-pesquisa
+    (filtroAplicado)="carregarCursos()"
+  ></app-entrada-pesquisa>
 
   <table *ngIf="dados.length > 0; else semCursos">
     <thead>
@@ -31,14 +33,17 @@
   </ng-template>
 
   <div class="botoes">
-    <app-botao texto="Incluir" routerLink="/adicionarCursos"></app-botao>
     <app-botao
+      texto="Incluir"
       (click)="redirecionarParaAdicionarCurso()"
-      texto="Alterar"
     ></app-botao>
     <app-botao
-      (click)="excluirCursosSelecionados()"
+      texto="Alterar"
+      (click)="redirecionarParaAdicionarCurso()"
+    ></app-botao>
+    <app-botao
       texto="Excluir"
+      (click)="excluirCursosSelecionados()"
     ></app-botao>
   </div>
 </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { EntradaPesquisaComponent } from "src/app/componentes/entrada-pesquisa/entrada-pesquisa.component";
 
 @Component({
   selector: "app-pagina-cursos",
@@ -9,6 +10,9 @@ import { Router } from "@angular/router";
 export class PaginaCursosComponent implements OnInit {
   dados: any[] = [];
   cursosSelecionados: any[] = [];
+
+  @ViewChild(EntradaPesquisaComponent, { static: true })
+  entradaPesquisaComponent!: EntradaPesquisaComponent;
 
   constructor(private router: Router) {}
 
@@ -20,25 +24,31 @@ export class PaginaCursosComponent implements OnInit {
     const cursosLocalStorage = JSON.parse(
       localStorage.getItem("cursos") || "[]"
     );
-    this.dados = cursosLocalStorage;
+    const termoPesquisa =
+      this.entradaPesquisaComponent.termoPesquisa.toLowerCase();
+
+    this.dados = cursosLocalStorage
+      .filter((curso: any) => curso.nome.toLowerCase().includes(termoPesquisa))
+      .map((curso: any) => ({
+        ...curso,
+        selecionado: false,
+      }));
   }
 
   redirecionarParaAdicionarCurso() {
-    console.log("Cursos selecionados:", this.cursosSelecionados);
     if (this.cursosSelecionados.length === 1) {
-      console.log("Redirecionando para edição de curso...");
-      const idCurso = this.cursosSelecionados[0].codigo;
-      this.router.navigate(["/adicionarCursos", idCurso]);
-    } else if (this.cursosSelecionados.length > 1) {
-      alert("Selecione apenas um curso para editar.");
+      const queryParams = `nome=${encodeURIComponent(
+        this.cursosSelecionados[0].nome
+      )}&dataNascimento=${this.cursosSelecionados[0].dataNascimento.toISOString()}`;
+      window.location.href = `/adicionarCursos?${queryParams}`;
     } else {
-      alert("Selecione um curso para editar.");
+      this.router.navigate(["/adicionarCursos"]);
     }
   }
 
   excluirCursosSelecionados() {
     this.dados = this.dados.filter((curso) => !curso.selecionado);
     localStorage.setItem("cursos", JSON.stringify(this.dados));
-    this.cursosSelecionados = [];
+    this.carregarCursos();
   }
 }

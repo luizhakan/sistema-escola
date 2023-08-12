@@ -7,8 +7,8 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./pagina-adicionar-matricula.component.css"],
 })
 export class PaginaAdicionarMatriculaComponent implements OnInit {
-  alunoSelecionado: string = "";
-  nomes: any[] = []; // Defina a propriedade 'nomes' como um array vazio
+  alunoSelecionado: any = {};
+  nomes: any[] = [];
   dadosFormatados: { nome: string; curso: string; dataMatricula: Date }[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {}
@@ -21,10 +21,9 @@ export class PaginaAdicionarMatriculaComponent implements OnInit {
       const idAluno = +params["id"];
       const aluno = this.nomes.find((nome) => nome.codigo === idAluno);
       if (aluno) {
-        this.alunoSelecionado = aluno.nome;
+        this.alunoSelecionado = aluno;
       } else {
         alert("Aluno não encontrado.");
-        // Redirecione para a página de matrículas quando o aluno não for encontrado
         this.router.navigate(["/matriculas"]);
       }
     });
@@ -34,7 +33,7 @@ export class PaginaAdicionarMatriculaComponent implements OnInit {
     const alunosLocalStorage = JSON.parse(
       localStorage.getItem("alunos") || "[]"
     );
-    this.nomes = alunosLocalStorage; // Atribua diretamente os alunos
+    this.nomes = alunosLocalStorage;
   }
 
   carregarMatriculas() {

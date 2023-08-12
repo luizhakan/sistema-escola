@@ -43,11 +43,14 @@
     <br />
 
     <div class="botoes">
-      <app-botao
-        texto="Incluir"
+      <button
+        class="botao"
+        [disabled]="cursoForm.invalid"
         (click)="adicionarCurso(cursoForm.value)"
         routerLink="/cursos"
-      ></app-botao>
+      >
+        Incluir
+      </button>
       <app-botao texto="Voltar" routerLink="/cursos"></app-botao>
     </div>
   </form>
