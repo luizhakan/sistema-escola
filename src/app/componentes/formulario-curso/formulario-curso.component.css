@@ -27,6 +27,22 @@ input {
   /* o segundo elemento, tem um margin-left 1 rem */
 }
 
+button  {
+  background: blue;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 7rem;
+  border-radius: 0.2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background: darkblue;
+}
+
 .campos {
   flex: 1;
   display: flex;

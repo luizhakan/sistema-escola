@@ -1,4 +1,3 @@
-// formulario-curso.component.ts
 import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
@@ -7,7 +6,7 @@ import { Component, Input, OnInit } from "@angular/core";
   styleUrls: ["./formulario-curso.component.css"],
 })
 export class FormularioCursoComponent implements OnInit {
-  @Input() curso: any; // Adicione esta linha
+  @Input() curso: any;
 
   nome: string = "";
   instrutor: string = "";
@@ -19,7 +18,6 @@ export class FormularioCursoComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.curso) {
-      // Preencha os campos com os dados do curso, se ele for fornecido
       this.nome = this.curso.nome;
       this.instrutor = this.curso.instrutor;
       this.local = this.curso.local;
@@ -51,13 +49,15 @@ export class FormularioCursoComponent implements OnInit {
       );
       cursosLocalStorage.push(novoCurso);
       localStorage.setItem("cursos", JSON.stringify(cursosLocalStorage));
-
-      // Limpar os campos do formulário após a inclusão
-      this.nome = "";
-      this.instrutor = "";
-      this.local = "";
-      this.cargaHoraria = 0;
-      this.dataInicio = "";
+      this.limparCampos();
     }
+  }
+
+  private limparCampos() {
+    this.nome = "";
+    this.instrutor = "";
+    this.local = "";
+    this.cargaHoraria = 0;
+    this.dataInicio = "";
   }
 }

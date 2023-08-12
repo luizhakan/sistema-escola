@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-pagina-adicionar-curso",
@@ -9,7 +9,7 @@ import { ActivatedRoute } from "@angular/router";
 export class PaginaAdicionarCursoComponent implements OnInit {
   cursoSelecionado: any = {};
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -22,18 +22,29 @@ export class PaginaAdicionarCursoComponent implements OnInit {
     const cursosLocalStorage = JSON.parse(
       localStorage.getItem("cursos") || "[]"
     );
-    this.cursoSelecionado = cursosLocalStorage.find(
-      (curso: any) => curso.codigo == idCurso
-    );
+    this.cursoSelecionado =
+      cursosLocalStorage.find((curso: any) => curso.codigo == idCurso) || {};
   }
 
-  adicionarCurso(
-    nome: string,
-    instrutor: string,
-    local: string,
-    cargaHoraria: number,
-    dataInicio: string
-  ) {
-    // Resto do código para adicionar um curso, similar ao que você já implementou
+  adicionarCurso() {
+    if (this.cursoSelecionado) {
+      alert(
+        "Desmarque a seleção e clique em 'Incluir' para adicionar um novo curso."
+      );
+    } else {
+      // Lógica para adicionar o curso à localStorage
+      // ...
+      this.router.navigate(["/cursos"]);
+    }
+  }
+
+  alterarCurso() {
+    if (!this.cursoSelecionado) {
+      alert("Selecione um curso para editar.");
+    } else {
+      // Lógica para alterar o curso na localStorage
+      // ...
+      this.router.navigate(["/cursos"]);
+    }
   }
 }

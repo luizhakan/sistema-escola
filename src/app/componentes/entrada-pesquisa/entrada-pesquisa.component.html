@@ -1,5 +1,5 @@
 <div class="container">
   <label for="pesquisa">Nome:</label>
-  <input type="text" name="pesquisa" id="pesquisa" />
+  <input type="text" name="pesquisa" id="pesquisa" (input)="aplicarFiltro($event)" />
   <app-botao texto="Pesquisar"></app-botao>
 </div>

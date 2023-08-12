@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Matrícula</h2>
 
-  <h3>Aluno: {{ alunoSelecionado }}</h3>
+  <h3>Aluno: {{ alunoSelecionado?.nome }}</h3> <!-- Adicione o operador "?" para tratar o possível valor nulo -->
 
   <app-formulario-matricula
     [alunoSelecionado]="alunoSelecionado"
