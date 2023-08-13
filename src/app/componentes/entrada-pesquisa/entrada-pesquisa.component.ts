@@ -1,19 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'app-entrada-pesquisa',
-  templateUrl: './entrada-pesquisa.component.html',
-  styleUrls: ['./entrada-pesquisa.component.css']
+  selector: "app-entrada-pesquisa",
+  templateUrl: "./entrada-pesquisa.component.html",
 })
 export class EntradaPesquisaComponent implements OnInit {
-  termoPesquisa: string = '';
+  termoPesquisa: string = "";
 
   @Output() filtroAplicado = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   aplicarFiltro(event: any): void {
     const valor = event.target.value;

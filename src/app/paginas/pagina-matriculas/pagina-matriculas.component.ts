@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { EntradaPesquisaComponent } from "src/app/componentes/entrada-pesquisa/entrada-pesquisa.component";
+import { EntradaPesquisaComponent } from "../../componentes/entrada-pesquisa/entrada-pesquisa.component";
 
 @Component({
   selector: "app-pagina-matriculas",
-  templateUrl: "./pagina-matriculas.component.html",
-  styleUrls: ["./pagina-matriculas.component.css"],
+  templateUrl: "./pagina-matriculas.component.html"
 })
 export class PaginaMatriculasComponent implements OnInit {
   dadosFormatados: { codigo: number; nome: string; selecionado: boolean }[] =

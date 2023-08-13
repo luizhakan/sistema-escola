@@ -1,57 +1,76 @@
-<div class="container">
+<div class="container p-4 md:w-1/2 lg:w-1/2 xl:w-1/3">
   <form #cursoForm="ngForm">
-    <div>
-      <label for="nome">Nome: <br /></label>
-      <input type="text" name="nome" id="nome" [(ngModel)]="nome" />
+    <div class="mb-4">
+      <label for="nome" class="font-bold mb-1 block">Nome:</label>
+      <input
+        type="text"
+        name="nome"
+        id="nome"
+        [(ngModel)]="nome"
+        class="border p-2 rounded"
+      />
     </div>
 
-    <div>
-      <label for="instrutor">Instrutor: <br /></label>
+    <div class="mb-4">
+      <label for="instrutor" class="font-bold mb-1 block">Instrutor:</label>
       <input
         type="text"
         name="instrutor"
         id="instrutor"
         [(ngModel)]="instrutor"
+        class="border p-2 rounded"
       />
     </div>
 
-    <div>
-      <label for="local">Local: <br /></label>
-      <input type="text" name="local" id="local" [(ngModel)]="local" />
+    <div class="mb-4">
+      <label for="local" class="font-bold mb-1 block">Local:</label>
+      <input
+        type="text"
+        name="local"
+        id="local"
+        [(ngModel)]="local"
+        class="border p-2 rounded"
+      />
     </div>
 
-    <div class="dois">
-      <div>
-        <label for="cargaHoraria">Carga Horária: <br /></label>
+    <div class="flex flex-col md:flex-row mb-4">
+      <div class="md:mr-4 mb-4 md:mb-0">
+        <label for="cargaHoraria" class="font-bold mb-1 block"
+          >Carga Horária:</label
+        >
         <input
           type="number"
           name="cargaHoraria"
           id="cargaHoraria"
           [(ngModel)]="cargaHoraria"
+          class="border p-2 rounded"
         />
       </div>
       <div>
-        <label for="dataInicio">Data Início: <br /></label>
+        <label for="dataInicio" class="font-bold mb-1 block"
+          >Data Início:</label
+        >
         <input
           type="date"
           name="dataInicio"
           id="dataInicio"
           [(ngModel)]="dataInicio"
+          class="border p-2 rounded"
         />
       </div>
     </div>
     <br />
 
-    <div class="botoes">
+    <div class="flex justify-between items-center">
       <button
-        class="botao"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer transition duration-300"
         [disabled]="cursoForm.invalid"
         (click)="adicionarCurso(cursoForm.value)"
         routerLink="/cursos"
       >
         Incluir
       </button>
-      <app-botao texto="Voltar" routerLink="/cursos"></app-botao>
+      <app-botao texto="Voltar" routerLink="/cursos" class="mr-4"></app-botao>
     </div>
   </form>
 </div>

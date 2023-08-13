@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { EntradaPesquisaComponent } from "src/app/componentes/entrada-pesquisa/entrada-pesquisa.component";
+import { EntradaPesquisaComponent } from "../../componentes/entrada-pesquisa/entrada-pesquisa.component";
 
 @Component({
   selector: "app-pagina-alunos",
-  templateUrl: "./pagina-alunos.component.html",
-  styleUrls: ["./pagina-alunos.component.css"],
+  templateUrl: "./pagina-alunos.component.html"
 })
 export class PaginaAlunosComponent implements OnInit {
   dadosFormatados: {
