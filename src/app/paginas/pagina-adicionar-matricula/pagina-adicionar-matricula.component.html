@@ -1,27 +1,35 @@
-<div class="container">
-  <h2>Matrícula</h2>
+<div class="container p-4 md:w-1/2 lg:w-2/3">
+  <h2 class="text-xl mb-4">Matrícula</h2>
 
-  <app-formulario-matricula></app-formulario-matricula>
+  <app-formulario-matricula class="mb-4"></app-formulario-matricula>
 
-  <div>
-    <label for="curso">Cursos Matriculados:</label>
-    <table>
-      <thead>
-        <tr>
-          <th>Curso</th>
-          <th>Data Matrícula</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of dadosFormatados">
-          <td>{{ row.curso }}</td>
-          <td>{{ row.dataMatricula | date : "shortDate" }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="mb-4">
+    <label for="curso" class="font-bold block">Cursos Matriculados:</label>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse border">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border p-2">Curso</th>
+            <th class="border p-2">Data Matrícula</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of dadosFormatados" class="odd:bg-gray-100">
+            <td class="border p-2">{{ row.curso }}</td>
+            <td class="border p-2">
+              {{ row.dataMatricula | date : "shortDate" }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="botoes">
-    <app-botao texto="Voltar" routerLink="/matriculas"></app-botao>
+  <div class="flex justify-end">
+    <app-botao
+      texto="Voltar"
+      routerLink="/matriculas"
+      class="w-full md:w-auto"
+    ></app-botao>
   </div>
 </div>

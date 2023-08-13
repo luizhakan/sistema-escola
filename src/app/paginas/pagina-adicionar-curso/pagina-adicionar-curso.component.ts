@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: "app-pagina-adicionar-curso",
   templateUrl: "./pagina-adicionar-curso.component.html",
-  styleUrls: ["./pagina-adicionar-curso.component.css"],
 })
 export class PaginaAdicionarCursoComponent implements OnInit {
   cursoSelecionado: any = {};

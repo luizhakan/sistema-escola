@@ -2,8 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-formulario-matricula",
-  templateUrl: "./formulario-matricula.component.html",
-  styleUrls: ["./formulario-matricula.component.css"],
+  templateUrl: "./formulario-matricula.component.html"
 })
 export class FormularioMatriculaComponent implements OnInit {
   @Input() alunoSelecionado: string = ""; // Adicione o valor padrão aqui

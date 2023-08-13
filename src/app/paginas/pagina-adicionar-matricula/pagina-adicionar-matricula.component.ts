@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-pagina-adicionar-matricula",
-  templateUrl: "./pagina-adicionar-matricula.component.html",
-  styleUrls: ["./pagina-adicionar-matricula.component.css"],
+  templateUrl: "./pagina-adicionar-matricula.component.html"
 })
 export class PaginaAdicionarMatriculaComponent implements OnInit {
   alunoSelecionado: any = {};
