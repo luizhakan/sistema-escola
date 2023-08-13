@@ -15,16 +15,19 @@ export class PaginaAdicionarMatriculaComponent implements OnInit {
 
   ngOnInit() {
     this.carregarNomes();
-    this.carregarMatriculas();
+    let dados = JSON.parse(localStorage.getItem("alunos") || "[]");
+
+    // pegar somente os nomes da variável dados
+    this.nomes = dados.map((aluno: any) => aluno.nome);
 
     this.route.params.subscribe((params) => {
       const idAluno = +params["id"];
-      const aluno = this.nomes.find((nome) => nome.codigo === idAluno);
+      const aluno = this.nomes.find((n) => n.codigo === idAluno);
+
       if (aluno) {
         this.alunoSelecionado = aluno;
       } else {
-        alert("Aluno não encontrado.");
-        this.router.navigate(["/matriculas"]);
+        this.alunoSelecionado = null;
       }
     });
   }

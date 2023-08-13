@@ -32,7 +32,6 @@ export class PaginaMatriculasComponent implements OnInit {
   }
 
   filtrarAlunos() {
-    // se o termo de pesquisa estiver vazio, retorne todos os alunos, se não, retorne apenas os alunos que contém o termo de pesquisa
     const termoPesquisa = this.entradaPesquisaComponent.termoPesquisa;
     if (!termoPesquisa) {
       this.carregarAlunos();
