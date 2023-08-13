@@ -9,11 +9,18 @@ export class FormularioMatriculaComponent implements OnInit {
   @Input() alunoSelecionado: string = ""; // Adicione o valor padrão aqui
   cursos = [];
   dataMatricula: string = "";
+  dadosFormatados: { nome: string; curso: string; dataMatricula: Date }[] = [];
+  alunos = [];
+  nomes: any = [];
 
   constructor() {}
 
   ngOnInit(): void {
     this.carregarCursos();
+    this.dadosFormatados = JSON.parse(localStorage.getItem("alunos") || "[]");
+    this.alunos = JSON.parse(localStorage.getItem("alunos") || "[]");
+
+    this.nomes = this.alunos.map((aluno: any) => aluno.nome);
   }
 
   carregarCursos() {
@@ -41,8 +48,6 @@ export class FormularioMatriculaComponent implements OnInit {
         "matriculas",
         JSON.stringify(matriculasLocalStorage)
       );
-
-      // Limpar campos após inclusão
       this.dataMatricula = "";
     }
   }

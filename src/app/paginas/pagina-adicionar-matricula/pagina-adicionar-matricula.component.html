@@ -1,11 +1,7 @@
 <div class="container">
   <h2>Matrícula</h2>
 
-  <h3>Aluno: {{ alunoSelecionado?.nome }}</h3> <!-- Adicione o operador "?" para tratar o possível valor nulo -->
-
-  <app-formulario-matricula
-    [alunoSelecionado]="alunoSelecionado"
-  ></app-formulario-matricula>
+  <app-formulario-matricula></app-formulario-matricula>
 
   <div>
     <label for="curso">Cursos Matriculados:</label>
@@ -14,14 +10,12 @@
         <tr>
           <th>Curso</th>
           <th>Data Matrícula</th>
-          <!-- <th></th> Remova essa coluna de exclusão -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of dadosFormatados">
           <td>{{ row.curso }}</td>
           <td>{{ row.dataMatricula | date : "shortDate" }}</td>
-          <!-- <td class="remove-button" (click)="removeMatricula(i)">X</td> Remova essa coluna de exclusão -->
         </tr>
       </tbody>
     </table>
