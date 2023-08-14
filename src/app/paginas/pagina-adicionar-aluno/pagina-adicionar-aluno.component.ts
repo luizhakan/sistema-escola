@@ -22,9 +22,11 @@ export class PaginaAdicionarAlunoComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params["nome"] && params["dataNascimento"]) {
         this.novoAluno.nome = params["nome"];
-        this.novoAluno.dataNascimento = new Date(
+        const dataNascimentoISO = new Date(
           params["dataNascimento"]
         ).toISOString();
+        const dataNascimentoFormatada = dataNascimentoISO.substring(0, 10);
+        this.novoAluno.dataNascimento = dataNascimentoFormatada;
       }
     });
   }
