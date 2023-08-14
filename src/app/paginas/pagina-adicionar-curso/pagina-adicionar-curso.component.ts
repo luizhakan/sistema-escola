@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class PaginaAdicionarCursoComponent implements OnInit {
   cursoSelecionado: any = {};
 
-  cursos: any[] = []; // Defina o tipo do array cursos
+  cursos: any[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -41,8 +41,6 @@ export class PaginaAdicionarCursoComponent implements OnInit {
         "Desmarque a seleção e clique em 'Incluir' para adicionar um novo curso."
       );
     } else {
-      // Lógica para adicionar o curso à localStorage
-      // ...
       this.router.navigate(["/cursos"]);
     }
   }
@@ -51,8 +49,6 @@ export class PaginaAdicionarCursoComponent implements OnInit {
     if (!this.cursoSelecionado) {
       alert("Selecione um curso para editar.");
     } else {
-      // Lógica para alterar o curso na localStorage
-      // ...
       this.router.navigate(["/cursos"]);
     }
   }

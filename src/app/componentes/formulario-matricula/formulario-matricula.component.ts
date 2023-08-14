@@ -8,7 +8,7 @@ export class FormularioMatriculaComponent implements OnInit {
   @Input() alunoSelecionado: string = "";
   cursos = [];
   dataMatricula: string = "";
-  alunos: { id: number; nome: string }[] = []; // Correção do tipo de array
+  alunos: { id: number; nome: string }[] = [];
   nomes: any = [];
 
   constructor() {}
@@ -43,7 +43,7 @@ export class FormularioMatriculaComponent implements OnInit {
         const alunoId = alunoEncontrado.id;
         const cursoId = this.cursos.findIndex(
           (curso: string) => curso === this.cursos[0]
-        ); // Supondo que você seleciona o primeiro curso da lista
+        );
 
         const novaMatricula = {
           idAluno: alunoId,
