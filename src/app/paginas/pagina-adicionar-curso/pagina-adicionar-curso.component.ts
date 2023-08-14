@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class PaginaAdicionarCursoComponent implements OnInit {
   cursoSelecionado: any = {};
 
+  cursos: any[] = []; // Defina o tipo do array cursos
+
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
@@ -17,10 +19,18 @@ export class PaginaAdicionarCursoComponent implements OnInit {
     });
   }
 
+  getNomeCurso(idCurso: number): string {
+    const cursoEncontrado = this.cursos.find(
+      (curso: any, index: number) => index + 1 === idCurso
+    );
+    return cursoEncontrado || "";
+  }
+
   carregarCurso(idCurso: any) {
     const cursosLocalStorage = JSON.parse(
       localStorage.getItem("cursos") || "[]"
     );
+    this.cursos = cursosLocalStorage;
     this.cursoSelecionado =
       cursosLocalStorage.find((curso: any) => curso.codigo == idCurso) || {};
   }

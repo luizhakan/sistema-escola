@@ -1,7 +1,10 @@
 <div class="container p-4 md:w-1/2 lg:w-2/3">
-  <h2 class="text-xl mb-4">Matrícula</h2>
+  <h2 class="text-xl mb-4">Matrícula para {{ alunoSelecionado?.nome }}</h2>
 
-  <app-formulario-matricula class="mb-4"></app-formulario-matricula>
+  <app-formulario-matricula
+    [alunoSelecionado]="alunoSelecionado?.nome"
+    class="mb-4"
+  ></app-formulario-matricula>
 
   <div class="mb-4">
     <label for="curso" class="font-bold block">Cursos Matriculados:</label>
@@ -11,13 +14,22 @@
           <tr class="bg-gray-200">
             <th class="border p-2">Curso</th>
             <th class="border p-2">Data Matrícula</th>
+            <th class="border p-2">Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of dadosFormatados" class="odd:bg-gray-100">
+          <tr
+            *ngFor="let row of dadosFormatados; let i = index"
+            class="odd:bg-gray-100"
+          >
             <td class="border p-2">{{ row.curso }}</td>
             <td class="border p-2">
               {{ row.dataMatricula | date : "shortDate" }}
+            </td>
+            <td class="border p-2">
+              <button (click)="removeMatricula(i)" class="text-red-500">
+                Remover
+              </button>
             </td>
           </tr>
         </tbody>

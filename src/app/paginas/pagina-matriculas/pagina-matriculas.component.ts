@@ -3,19 +3,21 @@ import { EntradaPesquisaComponent } from "../../componentes/entrada-pesquisa/ent
 
 @Component({
   selector: "app-pagina-matriculas",
-  templateUrl: "./pagina-matriculas.component.html"
+  templateUrl: "./pagina-matriculas.component.html",
 })
 export class PaginaMatriculasComponent implements OnInit {
-  dadosFormatados: { codigo: number; nome: string; selecionado: boolean }[] =
-    [];
+  dadosFormatados: { codigo: number; nome: string }[] = [];
   nomes: { codigo: number; nome: string }[] = [];
   @ViewChild(EntradaPesquisaComponent, { static: true })
   entradaPesquisaComponent!: EntradaPesquisaComponent;
+
+  alunosSelecionados: boolean[] = [];
 
   constructor() {}
 
   ngOnInit() {
     this.carregarAlunos();
+    localStorage.setItem("matriculas", JSON.stringify([]));
   }
 
   carregarAlunos() {
@@ -24,10 +26,31 @@ export class PaginaMatriculasComponent implements OnInit {
     );
 
     this.dadosFormatados = alunosLocalStorage.map((aluno: any) => {
-      return { codigo: aluno.codigo, nome: aluno.nome, selecionado: false };
+      return { codigo: aluno.id, nome: aluno.nome };
     });
 
     this.nomes = this.dadosFormatados.map((aluno) => aluno);
+    this.alunosSelecionados = this.dadosFormatados.map(() => false);
+  }
+
+  alunoSelecionadoChanged(index: number) {
+    this.alunosSelecionados = this.alunosSelecionados.map(
+      (_, i) => i === index
+    );
+  }
+
+  getSelectedAlunoId(): number | null {
+    const selectedAlunoIndex = this.alunosSelecionados.findIndex(
+      (selected) => selected
+    );
+    if (selectedAlunoIndex !== -1) {
+      return this.dadosFormatados[selectedAlunoIndex].codigo;
+    }
+    return null;
+  }
+
+  hasSelectedAluno(): boolean {
+    return this.getSelectedAlunoId() !== null;
   }
 
   filtrarAlunos() {
@@ -36,7 +59,7 @@ export class PaginaMatriculasComponent implements OnInit {
       this.carregarAlunos();
       return;
     } else {
-      this.dadosFormatados = this.dadosFormatados.filter((aluno) => {
+      this.dadosFormatados = this.nomes.filter((aluno) => {
         return aluno.nome.toLowerCase().includes(termoPesquisa.toLowerCase());
       });
     }

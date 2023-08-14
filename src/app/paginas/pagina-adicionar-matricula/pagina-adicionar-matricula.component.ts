@@ -3,32 +3,26 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-pagina-adicionar-matricula",
-  templateUrl: "./pagina-adicionar-matricula.component.html"
+  templateUrl: "./pagina-adicionar-matricula.component.html",
 })
 export class PaginaAdicionarMatriculaComponent implements OnInit {
   alunoSelecionado: any = {};
   nomes: any[] = [];
-  dadosFormatados: { nome: string; curso: string; dataMatricula: Date }[] = [];
+  dadosFormatados: { curso: string; dataMatricula: Date }[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.carregarNomes();
-    let dados = JSON.parse(localStorage.getItem("alunos") || "[]");
-
-    // pegar somente os nomes da variável dados
-    this.nomes = dados.map((aluno: any) => aluno.nome);
-
     this.route.params.subscribe((params) => {
       const idAluno = +params["id"];
       const aluno = this.nomes.find((n) => n.codigo === idAluno);
 
       if (aluno) {
         this.alunoSelecionado = aluno;
-      } else {
-        this.alunoSelecionado = null;
       }
     });
+    this.carregarMatriculas();
   }
 
   carregarNomes() {
@@ -43,21 +37,37 @@ export class PaginaAdicionarMatriculaComponent implements OnInit {
       localStorage.getItem("matriculas") || "[]"
     );
 
-    this.dadosFormatados = matriculasLocalStorage.map((matricula: any) => {
-      return {
-        nome: matricula.nome,
-        curso: matricula.curso,
-        dataMatricula: new Date(matricula.dataMatricula),
-      };
-    });
+    this.dadosFormatados = matriculasLocalStorage
+      .filter(
+        (matricula: any) => matricula.idAluno === this.alunoSelecionado.codigo
+      )
+      .map((matricula: any) => {
+        return {
+          curso: this.getCursoNomeById(matricula.idCurso),
+          dataMatricula: new Date(matricula.dataMatricula),
+        };
+      });
+  }
+
+  getCursoNomeById(idCurso: number): string {
+    const cursosLocalStorage = JSON.parse(
+      localStorage.getItem("cursos") || "[]"
+    );
+    const curso = cursosLocalStorage.find((curso: any) => curso.id === idCurso);
+    return curso ? curso.nome : "Curso não encontrado";
   }
 
   removeMatricula(index: number) {
-    this.dadosFormatados.splice(index, 1);
     const matriculasLocalStorage = JSON.parse(
       localStorage.getItem("matriculas") || "[]"
     );
+
     matriculasLocalStorage.splice(index, 1);
     localStorage.setItem("matriculas", JSON.stringify(matriculasLocalStorage));
+    this.carregarMatriculas();
+  }
+
+  voltarParaMatriculas() {
+    this.router.navigate(["/matriculas"]);
   }
 }

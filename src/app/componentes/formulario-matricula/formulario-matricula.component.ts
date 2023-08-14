@@ -2,24 +2,20 @@ import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-formulario-matricula",
-  templateUrl: "./formulario-matricula.component.html"
+  templateUrl: "./formulario-matricula.component.html",
 })
 export class FormularioMatriculaComponent implements OnInit {
-  @Input() alunoSelecionado: string = ""; // Adicione o valor padrão aqui
+  @Input() alunoSelecionado: string = "";
   cursos = [];
   dataMatricula: string = "";
-  dadosFormatados: { nome: string; curso: string; dataMatricula: Date }[] = [];
-  alunos = [];
+  alunos: { id: number; nome: string }[] = []; // Correção do tipo de array
   nomes: any = [];
 
   constructor() {}
 
   ngOnInit(): void {
     this.carregarCursos();
-    this.dadosFormatados = JSON.parse(localStorage.getItem("alunos") || "[]");
-    this.alunos = JSON.parse(localStorage.getItem("alunos") || "[]");
-
-    this.nomes = this.alunos.map((aluno: any) => aluno.nome);
+    this.carregarAlunos();
   }
 
   carregarCursos() {
@@ -29,25 +25,43 @@ export class FormularioMatriculaComponent implements OnInit {
     this.cursos = cursosLocalStorage.map((curso: any) => curso.nome);
   }
 
+  carregarAlunos() {
+    const alunosLocalStorage = JSON.parse(
+      localStorage.getItem("alunos") || "[]"
+    );
+    this.alunos = alunosLocalStorage;
+    this.nomes = this.alunos.map((aluno: any) => aluno.nome);
+  }
+
   adicionarMatricula() {
     if (this.alunoSelecionado && this.dataMatricula) {
-      // Verifique o alunoSelecionado
-      const novaMatricula = {
-        nome: this.alunoSelecionado,
-        curso: this.cursos[0], // Aqui você pode pegar o curso selecionado da dropdown
-        dataMatricula: new Date(this.dataMatricula),
-      };
-
-      const matriculasLocalStorage = JSON.parse(
-        localStorage.getItem("matriculas") || "[]"
+      const alunoEncontrado = this.alunos.find(
+        (aluno: any) => aluno.nome === this.alunoSelecionado
       );
 
-      matriculasLocalStorage.push(novaMatricula);
-      localStorage.setItem(
-        "matriculas",
-        JSON.stringify(matriculasLocalStorage)
-      );
-      this.dataMatricula = "";
+      if (alunoEncontrado) {
+        const alunoId = alunoEncontrado.id;
+        const cursoId = this.cursos.findIndex(
+          (curso: string) => curso === this.cursos[0]
+        ); // Supondo que você seleciona o primeiro curso da lista
+
+        const novaMatricula = {
+          idAluno: alunoId,
+          idCurso: cursoId,
+          dataMatricula: new Date(this.dataMatricula),
+        };
+
+        const matriculasLocalStorage = JSON.parse(
+          localStorage.getItem("matriculas") || "[]"
+        );
+
+        matriculasLocalStorage.push(novaMatricula);
+        localStorage.setItem(
+          "matriculas",
+          JSON.stringify(matriculasLocalStorage)
+        );
+        this.dataMatricula = "";
+      }
     }
   }
 }
