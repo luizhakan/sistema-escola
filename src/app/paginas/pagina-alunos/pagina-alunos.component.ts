@@ -39,14 +39,12 @@ export class PaginaAlunosComponent implements OnInit {
         codigo: d.codigo,
         nome: d.nome,
         dataNascimento: dataNascimentoLocal,
-        selecionado: false, // Adicione a propriedade selecionado
+        selecionado: false,
       };
     });
   }
 
-  // filtro aplicado
   filtrarAlunos() {
-    // se o termo de pesquisa estiver vazio, retorne todos os alunos, se não, retorne apenas os alunos que contém o termo de pesquisa
     const termoPesquisa = this.entradaPesquisaComponent.termoPesquisa;
     if (!termoPesquisa) {
       this.carregarAlunos();
@@ -68,12 +66,10 @@ export class PaginaAlunosComponent implements OnInit {
       return;
     }
 
-    // Remove os alunos selecionados
     this.dadosFormatados = this.dadosFormatados.filter(
       (aluno) => !aluno.selecionado
     );
 
-    // Atualiza o localStorage
     localStorage.setItem("alunos", JSON.stringify(this.dadosFormatados));
   }
 
@@ -94,7 +90,6 @@ export class PaginaAlunosComponent implements OnInit {
 
     const alunoSelecionado = alunosSelecionados[0];
 
-    // Redireciona para a página de adicionar alunos com os dados preenchidos
     const queryParams = `nome=${encodeURIComponent(
       alunoSelecionado.nome
     )}&dataNascimento=${alunoSelecionado.dataNascimento.toISOString()}`;
@@ -102,10 +97,8 @@ export class PaginaAlunosComponent implements OnInit {
   }
 
   excluirAluno(index: number) {
-    // Remova o aluno do array
     this.dadosFormatados.splice(index, 1);
 
-    // Atualize o localStorage
     localStorage.setItem("alunos", JSON.stringify(this.dadosFormatados));
   }
 }
