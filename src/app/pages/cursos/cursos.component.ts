@@ -62,10 +62,16 @@ export class CursosComponent {
    * Define o estado como 'Incluir', limpa o curso selecionado e abre o modal.
    */
   onIncluirClick(): void {
-    this.cursosService.setEstado('Incluir');
-    this.cursosService.setCursoSelecionado(null);
-    // Abra o modal aqui
-    this.cursosService.openDialog();
+    let linhasSelecionadas = this.tabela?.selection.selected;
+
+    if (linhasSelecionadas && linhasSelecionadas.length === 0) {
+      this.cursosService.setEstado('Incluir');
+      this.cursosService.setCursoSelecionado(null);
+      // Abra o modal aqui
+      this.cursosService.openDialog();
+    } else {
+      return;
+    }
   }
 
   /**
@@ -74,11 +80,17 @@ export class CursosComponent {
    * @param linhaSelecionada A linha selecionada na tabela.
    */
   onAlterarClick(linhaSelecionada: Cursos | Alunos | undefined): void {
-    if (linhaSelecionada) {
-      this.cursosService.setEstado('Alterar');
-      this.cursosService.setCursoSelecionado(linhaSelecionada as Cursos);
-      // Abra o modal aqui
-      this.cursosService.openDialog();
+    let linhasSelecionadas = this.tabela?.selection.selected;
+
+    if (linhasSelecionadas && linhasSelecionadas.length === 1) {
+      if (linhaSelecionada) {
+        this.cursosService.setEstado('Alterar');
+        this.cursosService.setCursoSelecionado(linhaSelecionada as Cursos);
+        // Abra o modal aqui
+        this.cursosService.openDialog();
+      }
+    } else {
+      return;
     }
   }
 
@@ -88,13 +100,15 @@ export class CursosComponent {
    * @param linhasSelecionadas As linhas selecionadas na tabela.
    */
   onExcluirClick(linhasSelecionadas: (Cursos | Alunos)[]): void {
-    this.cursosService.excluirCurso(linhasSelecionadas as Cursos[]);
+    if (linhasSelecionadas && linhasSelecionadas.length > 0) {
+      this.cursosService.excluirCurso(linhasSelecionadas as Cursos[]);
 
-    this.disabledAlterar = true;
-    this.disabledExcluir = true;
-    this.tabela?.selection.clear();
+      this.disabledAlterar = true;
+      this.disabledExcluir = true;
+      this.tabela?.selection.clear();
 
-    window.location.reload();
+      window.location.reload();
+    }
   }
 
   dados: Cursos[] = this.cursosService.cursos;

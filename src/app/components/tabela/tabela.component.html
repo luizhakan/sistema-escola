@@ -45,7 +45,7 @@
   <tr
     mat-row
     *matRowDef="let row; columns: displayedColumnsWithSelect"
-    (click)="selection.toggle(row)"
+    (click)="selection.toggle(row); getLinhaSelecionadas()"
     class="bg-white hover:bg-gray-100"
   ></tr>
 </table>

@@ -1,5 +1,12 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  Input,
+  SimpleChanges,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alunos, Cursos } from './interfaces-tabela';
 
@@ -13,6 +20,16 @@ import { Alunos, Cursos } from './interfaces-tabela';
   styleUrl: './tabela.component.css',
 })
 export class TabelaComponent implements OnChanges {
+  @Output() linhaSelecionada = new EventEmitter();
+
+  getLinhaSelecionadas(): Cursos | Alunos | undefined {
+    const linhasSelecionadas = this.selection.selected;
+    const linhaSelecionada =
+      linhasSelecionadas.length > 0 ? linhasSelecionadas[0] : undefined;
+    this.linhaSelecionada.emit(linhaSelecionada);
+    return linhaSelecionada;
+  }
+
   /**
    * Construtor padrão.
    */
@@ -110,12 +127,5 @@ export class TabelaComponent implements OnChanges {
     );
   }
 
-  /**
-   * Método que retorna a primeira linha selecionada na tabela.
-   * @returns A primeira linha selecionada, ou undefined se nenhuma linha estiver selecionada.
-   */
-  getLinhaSelecionadas(): Cursos | Alunos | undefined {
-    const linhasSelecionadas = this.selection.selected;
-    return linhasSelecionadas.length > 0 ? linhasSelecionadas[0] : undefined;
-  }
+
 }
