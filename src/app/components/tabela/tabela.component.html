@@ -1,51 +1,57 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
-  <!-- Definição da coluna "select" -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox
-        (change)="$event ? masterToggle() : null"
-        [checked]="isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()"
-        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-      ></mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox
-        (click)="$event.stopPropagation()"
-        (change)="$event ? selection.toggle(row) : null"
-        [checked]="selection.isSelected(row)"
-        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-      ></mat-checkbox>
-    </td>
-  </ng-container>
-
-  <!-- Definição das demais colunas -->
-  <ng-container *ngFor="let column of displayedColumns">
-    <ng-container [matColumnDef]="column">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        class="capitalize px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
-      >
-        {{ camelCaseToTitleCase(column) }}
+<div class="overflow-auto">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 xl:w-3/4"
+  >
+    <!-- Definição da coluna "select" -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+        ></mat-checkbox>
       </th>
-      <td
-        mat-cell
-        *matCellDef="let element"
-        class="px-6 py-4 whitespace-pre-wrap"
-      >
-        {{ element[column] }}
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+        ></mat-checkbox>
       </td>
     </ng-container>
-  </ng-container>
 
-  <!-- Definição das linhas de cabeçalho -->
-  <tr mat-header-row *matHeaderRowDef="displayedColumnsWithSelect"></tr>
-  <!-- Definição das linhas de dados -->
-  <tr
-    mat-row
-    *matRowDef="let row; columns: displayedColumnsWithSelect"
-    (click)="selection.toggle(row); getLinhaSelecionadas()"
-    class="bg-white hover:bg-gray-100"
-  ></tr>
-</table>
+    <!-- Definição das demais colunas -->
+    <ng-container *ngFor="let column of displayedColumns">
+      <ng-container [matColumnDef]="column">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="capitalize px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+        >
+          {{ camelCaseToTitleCase(column) }}
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="px-6 py-4 whitespace-pre-wrap"
+        >
+          {{ element[column] }}
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <!-- Definição das linhas de cabeçalho -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsWithSelect"></tr>
+    <!-- Definição das linhas de dados -->
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumnsWithSelect"
+      (click)="selection.toggle(row); getLinhaSelecionadas()"
+      class="bg-white hover:bg-gray-100"
+    ></tr>
+  </table>
+</div>

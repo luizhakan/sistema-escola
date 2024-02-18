@@ -1,3 +1,39 @@
-<header class="bg-blue-600 flex justify-center items-center w-full h-[5rem]">
-  <h2 class="border-b border-b-white font-medium text-4xl">Sistema Escola</h2>
+<!-- Header para todos os dispositivos -->
+<header class="bg-blue-600 w-full flex items-center justify-center p-4">
+  <div class="container mx-auto flex flex-wrap items-center justify-between">
+    <div class="flex items-center justify-center">
+      <h1 class="text-2xl font-bold text-white">Sistema - Escola</h1>
+    </div>
+
+    <!-- Menu para desktops e tablets -->
+    <nav class="hidden sm:flex space-x-4">
+      <a href="#" class="text-white hover:text-gray-200">Cursos</a>
+      <a href="#" class="text-white hover:text-gray-200">Alunos</a>
+      <a href="#" class="text-white hover:text-gray-200">Matrículas</a>
+    </nav>
+
+    <!-- Menu para dispositivos menores -->
+    <div class="sm:hidden">
+      <button mat-button [matMenuTriggerFor]="menu" class="text-white">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a href="#" target="_blank">
+          <button mat-menu-item>
+            <span>Cursos</span>
+          </button>
+        </a>
+        <a href="#" target="_blank">
+          <button mat-menu-item>
+            <span>Alunos</span>
+          </button>
+        </a>
+        <a href="#" target="_blank">
+          <button mat-menu-item>
+            <span>Matrículas</span>
+          </button>
+        </a>
+      </mat-menu>
+    </div>
+  </div>
 </header>

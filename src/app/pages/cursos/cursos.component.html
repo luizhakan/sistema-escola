@@ -1,17 +1,11 @@
-<!--
-  Este código HTML representa o template do componente "Cursos".
-   Ele contém um componente de filtro, um componente de tabela e botões para incluir, alterar e excluir cursos.
-   O componente de filtro permite ao usuário pesquisar cursos por nome.
-   O componente de tabela exibe os cursos em formato tabular.
-   Os botões realizam ações como incluir, alterar e excluir cursos.
--->
 <div class="flex flex-col">
   <app-filtro
     nome="Nome do curso:"
     placeholder="Digite o nome do curso"
-    class="mb-8"
+    class="mb-8 text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl p-4"
     [(valorDoCampo)]="valorDoFiltro"
     (valorDoCampoChange)="onFiltroChange($event)"
+    [autofocus]="true"
   ></app-filtro>
 
   <div class="tabela">
