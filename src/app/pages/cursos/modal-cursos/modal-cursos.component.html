@@ -1,0 +1,95 @@
+<form class="form" [formGroup]="formCurso" (ngSubmit)="onSubmit()">
+  <div class="modal bg-white p-6 rounded-lg shadow-md text-black">
+    <h2 class="text-2xl font-bold mb-4">{{ modalTitle }}</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <mat-label class="block text-gray-700 text-sm font-bold mb-2"
+          >Nome</mat-label
+        >
+        <input
+          matInput
+          formControlName="nome"
+          class="border rounded w-full py-2 px-3"
+          [value]="cursos?.nome"
+        />
+      </div>
+
+      <div>
+        <mat-label class="block text-gray-700 text-sm font-bold mb-2"
+          >Instrutor</mat-label
+        >
+        <input
+          matInput
+          formControlName="instrutor"
+          class="border rounded w-full py-2 px-3"
+          [value]="cursos?.instrutor"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-4">
+      <div>
+        <mat-label class="block text-gray-700 text-sm font-bold mb-2"
+          >Local (EAD se for online)</mat-label
+        >
+        <input
+          matInput
+          formControlName="local"
+          class="border rounded w-full py-2 px-3"
+          [value]="cursos?.local"
+        />
+      </div>
+
+      <div>
+        <mat-label class="block text-gray-700 text-sm font-bold mb-2"
+          >Carga Horária</mat-label
+        >
+        <input
+          matInput
+          type="number"
+          formControlName="cargaHoraria"
+          class="border rounded w-full py-2 px-3"
+          [value]="cursos?.cargaHoraria"
+        />
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <mat-label class="block text-gray-700 text-sm font-bold mb-2"
+        >Data de Início</mat-label
+      >
+      <input
+        matInput
+        type="date"
+        formControlName="dataInicio"
+        class="border rounded w-full py-2 px-3"
+        [value]="cursos?.dataInicio"
+      />
+    </div>
+
+    <div class="flex mt-6 justify-end">
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="formCurso.invalid"
+          class="mr-4"
+        >
+          Salvar
+        </button>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="onClose()"
+          type="button"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

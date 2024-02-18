@@ -1,0 +1,52 @@
+<!--
+  Este código HTML representa o template do componente "Cursos".
+   Ele contém um componente de filtro, um componente de tabela e botões para incluir, alterar e excluir cursos.
+   O componente de filtro permite ao usuário pesquisar cursos por nome.
+   O componente de tabela exibe os cursos em formato tabular.
+   Os botões realizam ações como incluir, alterar e excluir cursos.
+-->
+<div class="flex flex-col">
+  <app-filtro
+    nome="Nome do curso:"
+    placeholder="Digite o nome do curso"
+    class="mb-8"
+    [(valorDoCampo)]="valorDoFiltro"
+    (valorDoCampoChange)="onFiltroChange($event)"
+  ></app-filtro>
+
+  <div
+    class="tabela"
+    (mouseenter)="validar()"
+    (mouseover)="validar()"
+    (onclick)="validar()"
+  >
+    <app-tabela
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      #tabela
+    ></app-tabela>
+  </div>
+
+  <div class="w-full flex justify-center mt-4">
+    <div class="w-full flex justify-around text-center">
+      <app-botoes
+        nome="Incluir"
+        (click)="onIncluirClick()"
+        [desativar]="disabledIncluir"
+        [ngClass]="{ 'bg-white rounded': disabledIncluir }"
+      ></app-botoes>
+      <app-botoes
+        nome="Alterar"
+        (click)="onAlterarClick(tabela.getLinhaSelecionadas())"
+        [desativar]="disabledAlterar"
+        [ngClass]="{ 'bg-white rounded': disabledAlterar }"
+      ></app-botoes>
+      <app-botoes
+        nome="Excluir"
+        (click)="onExcluirClick(tabela.getLinhasSelecionadas())"
+        [desativar]="disabledExcluir"
+        [ngClass]="{ 'bg-white rounded': disabledExcluir }"
+      ></app-botoes>
+    </div>
+  </div>
+</div>

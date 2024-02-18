@@ -1,27 +1,9 @@
-<app-cabecalho></app-cabecalho>
-<div class="container flex flex-col md:flex-row h-full">
-  <nav
-    class="menu-lateral bg-white text-blue-500 p-4 flex flex-col w-full md:w-1/5"
-  >
-    <ul class="list-none p-0">
-      <li class="py-2">
-        <a routerLink="/cursos" class="text-blue-500 no-underline block"
-          >Cursos</a
-        >
-      </li>
-      <li class="py-2">
-        <a routerLink="/alunos" class="text-blue-500 no-underline block"
-          >Alunos</a
-        >
-      </li>
-      <li class="py-2">
-        <a routerLink="/matriculas" class="text-blue-500 no-underline block"
-          >Matrículas</a
-        >
-      </li>
-    </ul>
-  </nav>
-  <div class="content p-4 w-full md:w-4/5">
-    <router-outlet></router-outlet>
+<div class="flex bg-slate-900 h-screen text-white">
+  <app-sidebar class="fixed w-52"></app-sidebar>
+  <div class="ml-52 flex-grow">
+    <app-header class="w-screen"></app-header>
+    <div class="p-12">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
