@@ -1,0 +1,11 @@
+<div class="filtro text-white flex flex-col w-44">
+  <label for="nome" class="text-white">{{ nome }}</label>
+  <input
+    type="text"
+    id="nome"
+    class="text-black p-[.4rem]"
+    [placeholder]="placeholder"
+    [(ngModel)]="valorDoCampo"
+    (keyup)="filtrar($event)"
+  />
+</div>
