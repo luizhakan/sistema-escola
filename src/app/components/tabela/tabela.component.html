@@ -3,8 +3,8 @@
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
       <mat-checkbox
-        (change)="$event ? toggleAllRows() : null"
-        [checked]="selection.hasValue() && isAllSelected()"
+        (change)="$event ? masterToggle() : null"
+        [checked]="isAllSelected()"
         [indeterminate]="selection.hasValue() && !isAllSelected()"
         class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
       ></mat-checkbox>

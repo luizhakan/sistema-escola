@@ -21,6 +21,7 @@ import { Alunos, Cursos } from './interfaces-tabela';
 })
 export class TabelaComponent implements OnChanges {
   @Output() linhaSelecionada = new EventEmitter();
+  @Output() selecionarTodos = new EventEmitter();
 
   getLinhaSelecionadas(): Cursos | Alunos | undefined {
     const linhasSelecionadas = this.selection.selected;
@@ -28,6 +29,13 @@ export class TabelaComponent implements OnChanges {
       linhasSelecionadas.length > 0 ? linhasSelecionadas[0] : undefined;
     this.linhaSelecionada.emit(linhaSelecionada);
     return linhaSelecionada;
+  }
+
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
+    this.selecionarTodos.emit(this.selection.selected);
   }
 
   /**
@@ -126,6 +134,4 @@ export class TabelaComponent implements OnChanges {
       this.selection.isSelected(linha)
     );
   }
-
-
 }
