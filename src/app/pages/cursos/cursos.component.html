@@ -14,16 +14,13 @@
     (valorDoCampoChange)="onFiltroChange($event)"
   ></app-filtro>
 
-  <div
-    class="tabela"
-    (mouseenter)="validar()"
-    (mouseover)="validar()"
-    (onclick)="validar()"
-  >
+  <div class="tabela">
     <app-tabela
       [dataSource]="dataSource"
       [displayedColumns]="displayedColumns"
       #tabela
+      (linhaSelecionada)="validar()"
+      (selecionarTodos)="validar()"
     ></app-tabela>
   </div>
 
