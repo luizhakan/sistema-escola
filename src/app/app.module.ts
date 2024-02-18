@@ -10,7 +10,6 @@ import { CursosComponent } from './pages/cursos/cursos.component';
 import { AlunosComponent } from './pages/alunos/alunos.component';
 import { MatriculasComponent } from './pages/matriculas/matriculas.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FiltroComponent } from './components/filtro/filtro.component';
 import { ModalCursosComponent } from './pages/cursos/modal-cursos/modal-cursos.component';
 import { ModalAlunosComponent } from './pages/alunos/modal-alunos/modal-alunos.component';
@@ -26,6 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormField, MatHint } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -37,7 +38,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     AlunosComponent,
     MatriculasComponent,
     HeaderComponent,
-    SidebarComponent,
     FiltroComponent,
     ModalCursosComponent,
     ModalAlunosComponent,
@@ -60,6 +60,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatHint,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
