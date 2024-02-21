@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTableModule } from '@angular/material/table'; // Importe o MatTableModule
+import { TabelaComponent } from '../../../components/tabela/tabela.component';
 
-import { ModalCursosComponent } from './modal-cursos.component';
-
-describe('ModalCursosComponent', () => {
-  let component: ModalCursosComponent;
-  let fixture: ComponentFixture<ModalCursosComponent>;
+describe('TabelaComponent', () => {
+  let component: TabelaComponent;
+  let fixture: ComponentFixture<TabelaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModalCursosComponent]
+      declarations: [TabelaComponent],
+      imports: [MatTableModule], // Adicione o MatTableModule aqui
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(ModalCursosComponent);
+
+    fixture = TestBed.createComponent(TabelaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

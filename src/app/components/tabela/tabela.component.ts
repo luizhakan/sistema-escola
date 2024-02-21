@@ -24,17 +24,17 @@ export class TabelaComponent implements OnChanges {
   @Output() selecionarTodos = new EventEmitter();
 
   getLinhaSelecionadas(): Cursos | Alunos | undefined {
-    const linhasSelecionadas = this.selection.selected;
-    const linhaSelecionada =
-      linhasSelecionadas.length > 0 ? linhasSelecionadas[0] : undefined;
+    const linhaSelecionada = this.selection.selected[0] || undefined;
     this.linhaSelecionada.emit(linhaSelecionada);
     return linhaSelecionada;
   }
 
   masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.selection.select(...this.dataSource.data);
+    }
     this.selecionarTodos.emit(this.selection.selected);
   }
 
@@ -63,13 +63,12 @@ export class TabelaComponent implements OnChanges {
    */
   @Input() dataSource = new MatTableDataSource<any>([]);
 
-  /**
-   * Método que é chamado quando uma propriedade de entrada muda. Neste caso, ele atualiza displayedColumnsWithSelect quando displayedColumns muda.
-   * @param changes Um objeto de SimpleChanges que contém as propriedades de entrada que mudaram.
-   */
   ngOnChanges(changes: SimpleChanges) {
     if (changes['displayedColumns']) {
-      this.displayedColumnsWithSelect = ['select', ...this.displayedColumns];
+      this.displayedColumnsWithSelect = [
+        'select',
+        ...changes['displayedColumns'].currentValue,
+      ];
     }
   }
 
@@ -94,10 +93,9 @@ export class TabelaComponent implements OnChanges {
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
-      return;
+    } else {
+      this.selection.select(...this.dataSource.data);
     }
-
-    this.selection.select(...this.dataSource.data);
   }
 
   /**
@@ -106,12 +104,11 @@ export class TabelaComponent implements OnChanges {
    * @returns Uma string que é a label para a checkbox da linha.
    */
   checkboxLabel(row?: Cursos): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.codigo + 1
-    }`;
+    return !row
+      ? `${this.isAllSelected() ? 'deselect' : 'select'} all`
+      : `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+          row.codigo + 1
+        }`;
   }
 
   /**
@@ -120,9 +117,7 @@ export class TabelaComponent implements OnChanges {
    * @returns A string convertida em Title Case.
    */
   camelCaseToTitleCase(camelCase: string): string {
-    return camelCase
-      .replace(/([a-z])([A-Z])/g, '$1 $2')
-      .replace(/\b\w/g, (firstLetter) => firstLetter.toUpperCase());
+    return camelCase.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
   }
 
   /**
@@ -130,8 +125,6 @@ export class TabelaComponent implements OnChanges {
    * @returns Um array das linhas selecionadas.
    */
   getLinhasSelecionadas(): (Cursos | Alunos)[] {
-    return this.dataSource.data.filter((linha) =>
-      this.selection.isSelected(linha)
-    );
+    return this.selection.selected;
   }
 }
