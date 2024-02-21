@@ -7,9 +7,9 @@
 
     <!-- Menu para desktops e tablets -->
     <nav class="hidden sm:flex space-x-4">
-      <a href="#" class="text-white hover:text-gray-200">Cursos</a>
-      <a href="#" class="text-white hover:text-gray-200">Alunos</a>
-      <a href="#" class="text-white hover:text-gray-200">Matrículas</a>
+      <a routerLink="/cursos" class="text-white hover:text-gray-200">Cursos</a>
+      <a routerLink="/alunos" class="text-white hover:text-gray-200">Alunos</a>
+      <a routerLink="/matriculas" class="text-white hover:text-gray-200">Matrículas</a>
     </nav>
 
     <!-- Menu para dispositivos menores -->
@@ -18,17 +18,17 @@
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <a href="#" target="_blank">
+        <a routerLink="/cursos">
           <button mat-menu-item>
             <span>Cursos</span>
           </button>
         </a>
-        <a href="#" target="_blank">
+        <a routerLink="/alunos">
           <button mat-menu-item>
             <span>Alunos</span>
           </button>
         </a>
-        <a href="#" target="_blank">
+        <a routerLink="/matriculas">
           <button mat-menu-item>
             <span>Matrículas</span>
           </button>

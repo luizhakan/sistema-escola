@@ -1,1 +1,43 @@
-<p>alunos works!</p>
+<div class="flex flex-col">
+  <app-filtro
+    nome="Pesquisar aluno:"
+    placeholder="Digite o nome do aluno"
+    class="mb-8 text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl p-4"
+    [(valorDoCampo)]="valorDoFiltro"
+    (valorDoCampoChange)="onFiltroChange($event)"
+    [autofocus]="true"
+  ></app-filtro>
+
+  <div class="tabela">
+    <app-tabela
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      #tabela
+      (linhaSelecionada)="validar()"
+      (selecionarTodos)="validar()"
+    ></app-tabela>
+  </div>
+
+  <div class="w-full flex justify-center mt-4">
+    <div class="w-full flex justify-around text-center">
+      <app-botoes
+        nome="Incluir"
+        (click)="onIncluirClick()"
+        [desativar]="disabledIncluir"
+        [ngClass]="{ 'bg-white rounded': disabledIncluir }"
+      ></app-botoes>
+      <app-botoes
+        nome="Alterar"
+        (click)="onAlterarClick(tabela.getLinhaSelecionadas())"
+        [desativar]="disabledAlterar"
+        [ngClass]="{ 'bg-white rounded': disabledAlterar }"
+      ></app-botoes>
+      <app-botoes
+        nome="Excluir"
+        (click)="onExcluirClick(tabela.getLinhasSelecionadas())"
+        [desativar]="disabledExcluir"
+        [ngClass]="{ 'bg-white rounded': disabledExcluir }"
+      ></app-botoes>
+    </div>
+  </div>
+</div>
