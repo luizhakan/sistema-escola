@@ -10,6 +10,15 @@ import { Cursos } from '../../components/tabela/interfaces-tabela';
   providedIn: 'root',
 })
 export class CursosService {
+  static setEstado(setEstado: any) {
+    throw new Error('Method not implemented.');
+  }
+  static setCursoSelecionado(setCursoSelecionado: any) {
+    throw new Error('Method not implemented.');
+  }
+  static openDialog(openDialog: any) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private dialog: MatDialog) {}
 
   /**
@@ -19,7 +28,7 @@ export class CursosService {
 
   /**
    * Define o estado atual do serviço.
-   * @param estado O estado a ser definido.
+   * @param estado O estado a ser definido. Deve ser 'Incluir' ou 'Alterar'.
    */
   setEstado(estado: 'Incluir' | 'Alterar') {
     this.estadoAtual = estado;
@@ -55,7 +64,7 @@ export class CursosService {
    * @param curso O curso a ser criado.
    */
   criarCurso(curso: Cursos) {
-    this.cursos.push(curso);
+    this.cursos = [...this.cursos, curso];
 
     localStorage.setItem('cursos', JSON.stringify(this.cursos));
   }
@@ -65,10 +74,11 @@ export class CursosService {
    * @param curso O curso a ser atualizado.
    */
   atualizarCurso(curso: Cursos) {
-    let index = this.cursos.findIndex((c) => c.codigo === curso.codigo);
-    this.cursos[index] = curso;
-
-    localStorage.setItem('cursos', JSON.stringify(this.cursos));
+    const index = this.cursos.findIndex((c) => c.codigo === curso.codigo);
+    if (index !== -1) {
+      this.cursos[index] = curso;
+      localStorage.setItem('cursos', JSON.stringify(this.cursos));
+    }
   }
 
   /**
@@ -76,8 +86,9 @@ export class CursosService {
    * @param cursos Os cursos a serem excluídos.
    */
   excluirCurso(cursos: Cursos[]) {
-    let codigos = cursos.map((c) => c.codigo);
-    this.cursos = this.cursos.filter((c) => !codigos.includes(c.codigo));
+    this.cursos = this.cursos.filter(
+      (c) => !cursos.some((curso) => curso.codigo === c.codigo)
+    );
 
     localStorage.setItem('cursos', JSON.stringify(this.cursos));
   }

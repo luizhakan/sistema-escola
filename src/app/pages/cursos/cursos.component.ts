@@ -17,7 +17,7 @@ export class CursosComponent {
 
   valorDoFiltro: string;
 
-  constructor(private cursosService: CursosService) {
+  constructor(public cursosService: CursosService) {
     this.valorDoFiltro = '';
   }
 
@@ -30,19 +30,13 @@ export class CursosComponent {
    */
   validar() {
     let linhasSelecionadas = this.tabela?.selection.selected;
+    const qtdLinhasSelecionadas = linhasSelecionadas
+      ? linhasSelecionadas.length
+      : 0;
 
-    if (linhasSelecionadas && linhasSelecionadas.length === 1) {
-      this.disabledAlterar = false;
-      this.disabledExcluir = false;
-      this.disabledIncluir = true;
-    } else if (linhasSelecionadas && linhasSelecionadas.length > 1) {
-      this.disabledAlterar = true;
-      this.disabledExcluir = false;
-    } else if (linhasSelecionadas && linhasSelecionadas.length === 0) {
-      this.disabledAlterar = true;
-      this.disabledExcluir = true;
-      this.disabledIncluir = false;
-    }
+    this.disabledIncluir = qtdLinhasSelecionadas !== 0;
+    this.disabledAlterar = qtdLinhasSelecionadas !== 1;
+    this.disabledExcluir = qtdLinhasSelecionadas === 0;
   }
 
   /**
@@ -53,24 +47,26 @@ export class CursosComponent {
     const dadosFiltrados = this.cursosService.cursos.filter((curso) =>
       curso.nome.toLowerCase().includes(valorDoFiltro.toLowerCase())
     );
-    this.dataSource = new MatTableDataSource<Cursos | Alunos>(dadosFiltrados);
+    if (this.dataSource instanceof MatTableDataSource) {
+      this.dataSource.data = dadosFiltrados;
+    } else {
+      this.dataSource = new MatTableDataSource<Cursos | Alunos>(dadosFiltrados);
+    }
   }
 
   // No seu componente CursosComponent
   /**
    * Manipula o evento de clique no botão de inclusão.
-   * Define o estado como 'Incluir', limpa o curso selecionado e abre o modal.
+   * Define o estado como 'Incluir', limpa o curso selecionado e abre o modal se nenhuma linha estiver selecionada.
    */
   onIncluirClick(): void {
     let linhasSelecionadas = this.tabela?.selection.selected;
 
-    if (linhasSelecionadas && linhasSelecionadas.length === 0) {
+    if (!linhasSelecionadas || linhasSelecionadas.length === 0) {
       this.cursosService.setEstado('Incluir');
       this.cursosService.setCursoSelecionado(null);
       // Abra o modal aqui
       this.cursosService.openDialog();
-    } else {
-      return;
     }
   }
 
@@ -80,36 +76,32 @@ export class CursosComponent {
    * @param linhaSelecionada A linha selecionada na tabela.
    */
   onAlterarClick(linhaSelecionada: Cursos | Alunos | undefined): void {
-    let linhasSelecionadas = this.tabela?.selection.selected;
-
-    if (linhasSelecionadas && linhasSelecionadas.length === 1) {
-      if (linhaSelecionada) {
-        this.cursosService.setEstado('Alterar');
-        this.cursosService.setCursoSelecionado(linhaSelecionada as Cursos);
-        // Abra o modal aqui
-        this.cursosService.openDialog();
-      }
-    } else {
+    if (this.tabela?.selection.selected?.length !== 1 || !linhaSelecionada) {
       return;
     }
+    this.cursosService.setEstado('Alterar');
+    this.cursosService.setCursoSelecionado(linhaSelecionada as Cursos);
+    this.cursosService.openDialog();
   }
 
-  /**
-   * Manipula o evento de clique no botão de exclusão.
-   * Exclui os cursos selecionados, limpa a seleção na tabela e recarrega a página.
-   * @param linhasSelecionadas As linhas selecionadas na tabela.
-   */
-  onExcluirClick(linhasSelecionadas: (Cursos | Alunos)[]): void {
-    if (linhasSelecionadas && linhasSelecionadas.length > 0) {
-      this.cursosService.excluirCurso(linhasSelecionadas as Cursos[]);
-
-      this.disabledAlterar = true;
-      this.disabledExcluir = true;
-      this.tabela?.selection.clear();
-
-      window.location.reload();
-    }
+/**
+ * Manipula o evento de clique no botão de exclusão.
+ * Exclui os cursos selecionados, limpa a seleção na tabela e recarrega a página.
+ * @param linhasSelecionadas As linhas selecionadas na tabela.
+ */
+onExcluirClick(linhasSelecionadas: (Cursos | Alunos)[]): void {
+  if (linhasSelecionadas && linhasSelecionadas.length > 0) {
+    this.cursosService.excluirCurso(linhasSelecionadas as Cursos[]);
+    this.resetPage();
   }
+}
+
+public resetPage(): void {
+  this.disabledAlterar = true;
+  this.disabledExcluir = true;
+  this.tabela?.selection.clear();
+  window.location.reload();
+}
 
   dados: Cursos[] = this.cursosService.cursos;
 
