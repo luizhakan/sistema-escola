@@ -1,1 +1,64 @@
-<p>modal-matriculas works!</p>
+<!-- <form class="form" [formGroup]="formMatricula" (ngSubmit)="onSubmit()"> -->
+<form class="form" [formGroup]="formMatricula">
+  <div
+    class="modal flex flex-col bg-gray-800 text-white p-6 rounded-lg shadow-md text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+      <h2 class="font-bold mb-4">Incluir matrícula</h2>
+        <mat-form-field>
+          <mat-label>Curso</mat-label>
+          <mat-select
+            formControlName="codigoDoCurso"
+            (selectionChange)="onCursoChange($event)"
+          >
+            <mat-option *ngFor="let curso of cursos" [value]="curso.codigo">
+              {{ curso.nome }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-label class="block text-white font-bold mb-2">Data de Matrícula</mat-label>
+        <input
+          matInput
+          type="date"
+          formControlName="dataMatricula"
+          class="border rounded w-full py-2 px-3 text-black ml-2"
+        />
+
+        <span
+          *ngIf="formMatricula.get('dataMatricula')?.errors?.['forbiddenDate']"
+          class="text-red-500"
+          >A data de nascimento deve ser pelo menos 1 mês antes do curso.</span
+        >
+      </div>
+    </div>
+
+    <div class="flex mt-6 justify-end">
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="formMatricula.invalid"
+          class="mr-4"
+          (click)="onSubmit()"
+        >
+          Salvar
+        </button>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="onClose()"
+          type="button"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -23,13 +23,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormField, MatHint } from '@angular/material/form-field';
+import { MatFormField, MatFormFieldModule, MatHint } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatOptionModule } from '@angular/material/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     MatMenuModule,
     MatIconModule,
+    MatOptionModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

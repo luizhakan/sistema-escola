@@ -1,1 +1,26 @@
-<p>ver-matricular works!</p>
+<div class="flex flex-col">
+  <!-- Certifique-se de que as colunas correspondam às propriedades dos dados formatados -->
+  <app-tabela
+    [dataSource]="dataSource"
+    [displayedColumns]="displayedColumns"
+    #tabela
+    (linhaSelecionada)="validar()"
+    (selecionarTodos)="validar()"
+  ></app-tabela>
+
+  <div class="w-full flex justify-center mt-4">
+    <div class="w-full flex justify-around text-center">
+      <app-botoes
+        nome="Excluir"
+        [desativar]="disabledExcluir"
+        [ngClass]="{ 'bg-white rounded': disabledExcluir }"
+      ></app-botoes>
+      <app-botoes
+        nome="Voltar"
+        routerLink="/matriculas"
+        [desativar]="disabledVoltar"
+        [ngClass]="{ 'bg-white rounded': disabledVoltar }"
+      ></app-botoes>
+    </div>
+  </div>
+</div>

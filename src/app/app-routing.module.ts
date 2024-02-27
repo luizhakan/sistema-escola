@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { MatriculasComponent } from './pages/matriculas/matriculas.component';
 import { AlunosComponent } from './pages/alunos/alunos.component';
+import { VerMatricularComponent } from './pages/matriculas/ver-matricular/ver-matricular.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'matriculas',
     component: MatriculasComponent,
   },
+  {
+    path: 'verMatricula',
+    component: VerMatricularComponent,
+  }
 ];
 
 @NgModule({

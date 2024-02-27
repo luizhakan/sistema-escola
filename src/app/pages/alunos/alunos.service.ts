@@ -90,4 +90,8 @@ export class AlunosService {
 
     localStorage.setItem('alunos', JSON.stringify(this.alunos));
   }
+
+  obterAlunoPorCodigo(codigo: number) {
+    return this.alunos.find((aluno) => aluno.codigo === codigo);
+  }
 }

@@ -29,6 +29,8 @@ export class TabelaComponent implements OnChanges {
     return linhaSelecionada;
   }
 
+  alunoSelecionadoCodigo: any = null;
+
   masterToggle() {
     if (this.isAllSelected()) {
       this.selection.clear();
@@ -46,7 +48,7 @@ export class TabelaComponent implements OnChanges {
   /**
    * Array de dados que serão exibidos na tabela.
    */
-  dados: Cursos[] | Alunos[] = [];
+  dados: any[] = [];
 
   /**
    * Array de strings que define as colunas que serão exibidas na tabela.

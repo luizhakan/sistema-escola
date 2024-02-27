@@ -92,4 +92,10 @@ export class CursosService {
 
     localStorage.setItem('cursos', JSON.stringify(this.cursos));
   }
+
+  obterNomeDoCurso(codigo: string): string | undefined {
+    const cursoEncontrado = this.cursos.find((c) => c.codigo.toString() === codigo);
+    return cursoEncontrado?.nome;
+  }
+
 }

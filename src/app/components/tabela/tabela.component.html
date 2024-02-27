@@ -1,8 +1,8 @@
-<div class="overflow-auto">
+<div class="overflow-auto hover:text-black">
   <table
     mat-table
     [dataSource]="dataSource"
-    class="mat-elevation-z8 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 xl:w-3/4"
+    class="mat-elevation-z8 w-full sm:w-3/4 md:w-1/2 lg:w-2/3 xl:w-3/4 hover:text-black"
   >
     <!-- Definição da coluna "select" -->
     <ng-container matColumnDef="select">
@@ -30,14 +30,14 @@
         <th
           mat-header-cell
           *matHeaderCellDef
-          class="capitalize px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+          class="capitalize px-6 py-3 text-left text-xs font-medium text-white tracking-wider"
         >
           {{ camelCaseToTitleCase(column) }}
         </th>
         <td
           mat-cell
           *matCellDef="let element"
-          class="px-6 py-4 whitespace-pre-wrap"
+          class="px-6 py-4 whitespace-pre-wrap text-white hover:text-black"
         >
           {{ element[column] }}
         </td>
@@ -51,7 +51,7 @@
       mat-row
       *matRowDef="let row; columns: displayedColumnsWithSelect"
       (click)="selection.toggle(row); getLinhaSelecionadas()"
-      class="bg-white hover:bg-gray-100"
+      class="hover:bg-gray-800"
     ></tr>
   </table>
 </div>

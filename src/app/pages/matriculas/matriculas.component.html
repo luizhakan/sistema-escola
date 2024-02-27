@@ -1,1 +1,37 @@
-<p>matriculas works!</p>
+<div class="flex flex-col">
+  <app-filtro
+    nome="Pesquisar aluno:"
+    placeholder="Digite o nome do aluno"
+    class="mb-8 text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl p-4"
+    [(valorDoCampo)]="valorDoFiltro"
+    (valorDoCampoChange)="onFiltroChange($event)"
+    [autofocus]="true"
+  ></app-filtro>
+
+  <app-tabela
+    [dataSource]="dataSource"
+    [displayedColumns]="displayedColumns"
+    #tabela
+    (linhaSelecionada)="validar()"
+    (selecionarTodos)="validar()"
+  ></app-tabela>
+
+  <div class="w-full flex justify-center mt-4">
+    <div class="w-full flex justify-around text-center">
+      <app-botoes
+        nome="Ver matricula"
+        (click)="onVerMatriculasClick()"
+        routerLink="/verMatricula"
+        [desativar]="disabledVerMatricula"
+        [ngClass]="{ 'bg-white rounded': disabledVerMatricula }"
+      ></app-botoes>
+
+      <app-botoes
+        nome="Matricular"
+        [desativar]="disabledMatricular"
+        (click)="onMatricularClick()"
+        [ngClass]="{ 'bg-white rounded': disabledMatricular }"
+      ></app-botoes>
+    </div>
+  </div>
+</div>

@@ -1,28 +1,26 @@
 <form class="form" [formGroup]="formCurso" (ngSubmit)="onSubmit()">
   <div
-    class="modal bg-white p-6 rounded-lg shadow-md text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl"
+    class="modal bg-gray-800 p-6 rounded-lg shadow-md text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl"
   >
-    <h2 class="font-bold mb-4">{{ modalTitle }}</h2>
+    <h2 class="font-bold mb-4 text-white">{{ modalTitle }}</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <mat-label class="block text-gray-700 font-bold mb-2">Nome</mat-label>
+        <mat-label class="block text-white font-bold mb-2">Nome</mat-label>
         <input
           matInput
           formControlName="nome"
-          class="border rounded w-full py-2 px-3"
+          class="border rounded w-full py-2 px-3 text-black"
           [value]="cursos?.nome"
         />
       </div>
 
       <div>
-        <mat-label class="block text-gray-700 font-bold mb-2"
-          >Instrutor</mat-label
-        >
+        <mat-label class="block text-white font-bold mb-2">Instrutor</mat-label>
         <input
           matInput
           formControlName="instrutor"
-          class="border rounded w-full py-2 px-3"
+          class="border rounded w-full py-2 px-3 text-black"
           [value]="cursos?.instrutor"
         />
       </div>
@@ -30,40 +28,40 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
       <div>
-        <mat-label class="block text-gray-700 font-bold mb-2"
+        <mat-label class="block text-white font-bold mb-2"
           >Local (EAD se for online)</mat-label
         >
         <input
           matInput
           formControlName="local"
-          class="border rounded w-full py-2 px-3"
+          class="border rounded w-full py-2 px-3 text-black"
           [value]="cursos?.local"
         />
       </div>
 
       <div>
-        <mat-label class="block text-gray-700 font-bold mb-2"
+        <mat-label class="block text-white font-bold mb-2"
           >Carga Horária</mat-label
         >
         <input
           matInput
           type="number"
           formControlName="cargaHoraria"
-          class="border rounded w-full py-2 px-3"
+          class="border rounded w-full py-2 px-3 text-black"
           [value]="cursos?.cargaHoraria"
         />
       </div>
     </div>
 
     <div class="mt-4">
-      <mat-label class="block text-gray-700 font-bold mb-2"
+      <mat-label class="block text-white font-bold mb-2"
         >Data de Início</mat-label
       >
       <input
         matInput
         type="date"
         formControlName="dataInicio"
-        class="border rounded w-full py-2 px-3"
+        class="border rounded w-full py-2 px-3 text-black"
         [value]="cursos?.dataInicio"
       />
     </div>
