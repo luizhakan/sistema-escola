@@ -8,7 +8,7 @@ import { TabelaComponent } from '../../components/tabela/tabela.component';
 @Component({
   selector: 'app-matriculas',
   templateUrl: './matriculas.component.html',
-  styleUrl: './matriculas.component.css',
+  styleUrls: ['./matriculas.component.css'],
 })
 export class MatriculasComponent implements OnInit {
   @ViewChild(TabelaComponent) tabela: TabelaComponent | undefined;
@@ -20,62 +20,83 @@ export class MatriculasComponent implements OnInit {
   disabledExcluir: boolean = true;
 
   dataSource = new MatTableDataSource<Cursos | Alunos>(this.dados);
-  alunoSelecionadoCodigo: any | null = null;
+  alunoSelecionado: Alunos | undefined;
 
   displayedColumns = ['codigo', 'nome', 'dataNascimento'];
 
+  /**
+   * Construtor para criar uma instância da classe.
+   *
+   * @param {MatriculasService} matriculasService - serviço para matriculas
+   * @param {AlunosService} alunosService - serviço para alunos
+   */
   constructor(
     private matriculasService: MatriculasService,
     private alunosService: AlunosService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
+  /**
+   * Manipula o evento de clique para visualizar matrículas de alunos.
+   */
   onVerMatriculasClick() {
     if (this.tabela?.selection.selected.length === 1) {
-      const codigoDoAlunoSelecionado = String(this.tabela.selection.selected[0].codigo);
-      console.log("Código do aluno selecionado:", codigoDoAlunoSelecionado);
-      this.alunoSelecionadoCodigo = codigoDoAlunoSelecionado;
-    }
-  }
-
-
-
-  onFiltroChange(event: string) {
-    this.valorDoFiltro = event;
-    if (this.tabela) {
-      this.tabela.alunoSelecionadoCodigo = this.alunosService.alunoSelecionado?.codigo;
+      const codigoDoAlunoSelecionado = String(
+        this.tabela.selection.selected[0]
+      );
+      this.alunoSelecionado = this.alunosService.obterAlunoPorCodigo(
+        codigoDoAlunoSelecionado.toString()
+      );
     }
   }
 
   /**
-   * Valida as linhas selecionadas na tabela e atualiza o estado dos botões de inclusão, alteração e exclusão.
+   * Manipula o evento de mudança do filtro.
+   *
+   * @param {string} event - o novo valor do filtro
+   */
+  onFiltroChange(event: string) {
+    this.valorDoFiltro = event;
+    if (this.tabela) {
+      this.tabela.alunoSelecionadoCodigo =
+        this.alunosService.alunoSelecionado?.codigo;
+    }
+  }
+
+  /**
+   * Uma função para validar as linhas selecionadas e atualizar o estado desabilitado de vários botões.
    */
   validar() {
     let linhasSelecionadas = this.tabela?.selection.selected;
-    const qtdLinhasSelecionadas = linhasSelecionadas ? linhasSelecionadas.length : 0;
+    const qtdLinhasSelecionadas = linhasSelecionadas
+      ? linhasSelecionadas.length
+      : 0;
 
     this.disabledVerMatricula = qtdLinhasSelecionadas !== 1;
     this.disabledMatricular = qtdLinhasSelecionadas !== 1;
     this.disabledExcluir = qtdLinhasSelecionadas === 0;
 
-    // Adicione esta linha para obter o código do aluno selecionado
-    const codigoDoAlunoSelecionado = this.alunosService.alunoSelecionado?.codigo;
-    if (codigoDoAlunoSelecionado) {
-      this.alunoSelecionadoCodigo = codigoDoAlunoSelecionado;
+    if (this.tabela) {
+      this.tabela.alunoSelecionadoCodigo = this.alunoSelecionado?.codigo;
     }
-
-
   }
 
+  /**
+   * Manipula o evento de clique para matricular.
+   */
   onMatricularClick() {
     if (this.tabela?.selection.selected.length === 1) {
-      const codigoDoAlunoSelecionado = String(this.tabela.selection.selected[0].codigo);
+      const codigoDoAlunoSelecionado = String(
+        this.tabela.selection.selected[0]
+      );
+      this.alunoSelecionado = this.alunosService.obterAlunoPorCodigo(
+        codigoDoAlunoSelecionado.toString()
+      );
+
       this.matriculasService.openDialog(codigoDoAlunoSelecionado);
     } else {
-      console.log("Nenhum aluno selecionado para matricular.");
+      console.log('Nenhum aluno selecionado para matricular.');
     }
   }
 }

@@ -13,11 +13,31 @@ export class AlunosComponent {
   @ViewChild(TabelaComponent) tabela: TabelaComponent | undefined;
 
   valorDoFiltro: string;
+  displayedColumns: string[] = ['codigo', 'nome', 'dataNascimento'];
 
+  disabledIncluir: boolean = false;
+  disabledAlterar: boolean = true;
+  disabledExcluir: boolean = true;
+  dados: Alunos[] = this.alunosService.alunos;
+
+  dataSource = new MatTableDataSource<Alunos>(this.dados);
+
+  /**
+   * Construtor para inicializar AlunosService.
+   *
+   * @param {AlunosService} alunosService - instância de AlunosService para injeção de dependência
+   * @return {void}
+   */
   constructor(private alunosService: AlunosService) {
     this.valorDoFiltro = '';
   }
 
+  /**
+   * Manipula o evento de mudança do filtro de entrada e atualiza a origem dos dados conforme necessário.
+   *
+   * @param {string} valorDoFiltro - o valor do filtro de entrada
+   * @return {void}
+   */
   onFiltroChange(valorDoFiltro: string) {
     const dadosFiltrados = this.alunosService.alunos.filter((aluno) =>
       aluno.nome.toLowerCase().includes(valorDoFiltro.toLowerCase())
@@ -29,6 +49,10 @@ export class AlunosComponent {
     }
   }
 
+  /**
+   * Esta função lida com o evento de clique para a ação "Incluir". Ela recupera as linhas selecionadas da tabela,
+   * define o estado para "Incluir", define o aluno selecionado como nulo, e abre um modal se nenhuma linha estiver selecionada.
+   */
   onIncluirClick(): void {
     let linhasSelecionadas = this.tabela?.selection.selected;
 
@@ -41,9 +65,10 @@ export class AlunosComponent {
   }
 
   /**
-   * Manipula o evento de clique no botão de alteração.
-   * Define o estado como 'Alterar', define o curso selecionado e abre o modal.
-   * @param linhaSelecionada A linha selecionada na tabela.
+   * Manipula o evento de clique para a ação de alterar.
+   *
+   * @param {Cursos | Alunos | undefined} linhaSelecionada - a linha selecionada, que pode ser do tipo Cursos, Alunos ou undefined
+   * @return {void}
    */
   onAlterarClick(linhaSelecionada: Cursos | Alunos | undefined): void {
     if (this.tabela?.selection.selected?.length !== 1 || !linhaSelecionada) {
@@ -55,9 +80,10 @@ export class AlunosComponent {
   }
 
   /**
-   * Manipula o evento de clique no botão de exclusão.
-   * Exclui os cursos selecionados, limpa a seleção na tabela e recarrega a página.
-   * @param linhasSelecionadas As linhas selecionadas na tabela.
+   * Uma função que lida com o evento de clique para a ação "Excluir".
+   *
+   * @param {Cursos | Alunos[]} linhasSelecionadas - um array de itens selecionados, que podem ser Cursos ou Alunos
+   * @return {void}
    */
   onExcluirClick(linhasSelecionadas: (Cursos | Alunos)[]): void {
     if (linhasSelecionadas && linhasSelecionadas.length > 0) {
@@ -66,6 +92,10 @@ export class AlunosComponent {
     }
   }
 
+  /**
+   * Reseta a página, desabilitando 'alterar' e 'excluir', limpando a seleção na tabela e recarregando a janela.
+   *
+   */
   public resetPage(): void {
     this.disabledAlterar = true;
     this.disabledExcluir = true;
@@ -73,14 +103,9 @@ export class AlunosComponent {
     window.location.reload();
   }
 
-  displayedColumns: string[] = ['codigo', 'nome', 'dataNascimento'];
-
-  disabledIncluir: boolean = false;
-  disabledAlterar: boolean = true;
-  disabledExcluir: boolean = true;
-
   /**
-   * Valida as linhas selecionadas na tabela e atualiza o estado dos botões de inclusão, alteração e exclusão.
+   * Descrição da função inteira.
+   *
    */
   validar() {
     let linhasSelecionadas = this.tabela?.selection.selected;
@@ -92,8 +117,4 @@ export class AlunosComponent {
     this.disabledAlterar = qtdLinhasSelecionadas !== 1;
     this.disabledExcluir = qtdLinhasSelecionadas === 0;
   }
-
-  dados: Alunos[] = this.alunosService.alunos;
-
-  dataSource = new MatTableDataSource<Alunos>(this.dados);
 }

@@ -21,47 +21,42 @@ export class CursosService {
   }
   constructor(private dialog: MatDialog) {}
 
-  /**
-   * Estado atual do serviço.
-   */
   estadoAtual: 'Incluir' | 'Alterar' = 'Incluir';
+  cursoSelecionado: Cursos | null = null;
+  cursos: Cursos[] = JSON.parse(localStorage.getItem('cursos') || '[]');
 
   /**
-   * Define o estado atual do serviço.
-   * @param estado O estado a ser definido. Deve ser 'Incluir' ou 'Alterar'.
+   * Define a propriedade estadoAtual para o valor de estado fornecido.
+   *
+   * @param {'Incluir' | 'Alterar'} estado - O valor de estado a ser definido
+   * @return {void}
    */
   setEstado(estado: 'Incluir' | 'Alterar') {
     this.estadoAtual = estado;
   }
 
   /**
-   * Curso selecionado.
-   */
-  cursoSelecionado: Cursos | null = null;
-
-  /**
    * Define o curso selecionado.
-   * @param curso O curso a ser definido.
+   *
+   * @param {Cursos | null} curso - o curso a ser definido como selecionado
+   * @return {void}
    */
   setCursoSelecionado(curso: Cursos | null) {
     this.cursoSelecionado = curso;
   }
 
   /**
-   * Abre o modal para adicionar ou editar um curso.
+   * Abre um diálogo com o ModalCursosComponent.
    */
   openDialog() {
     this.dialog.open(ModalCursosComponent);
   }
 
   /**
-   * Lista de cursos armazenados na localStorage.
-   */
-  cursos: Cursos[] = JSON.parse(localStorage.getItem('cursos') || '[]');
-
-  /**
-   * Cria um novo curso e o adiciona na localStorage.
-   * @param curso O curso a ser criado.
+   * criarCurso - Uma função que adiciona um novo curso à lista de cursos e salva a lista atualizada no armazenamento local.
+   *
+   * @param {Cursos} curso - O objeto de curso a ser adicionado à lista.
+   * @return {void}
    */
   criarCurso(curso: Cursos) {
     this.cursos = [...this.cursos, curso];
@@ -70,8 +65,9 @@ export class CursosService {
   }
 
   /**
-   * Atualiza um curso na localStorage.
-   * @param curso O curso a ser atualizado.
+   * Atualiza o curso com o objeto curso fornecido no array de cursos e armazena o array de cursos atualizado no armazenamento local.
+   *
+   * @param {Cursos} curso - o objeto curso a ser atualizado
    */
   atualizarCurso(curso: Cursos) {
     const index = this.cursos.findIndex((c) => c.codigo === curso.codigo);
@@ -82,8 +78,10 @@ export class CursosService {
   }
 
   /**
-   * Exclui um ou mais cursos da localStorage.
-   * @param cursos Os cursos a serem excluídos.
+   * Filtra os cursos especificados da lista existente de cursos e atualiza o armazenamento local com a lista modificada.
+   *
+   * @param {Cursos[]} cursos - a lista de cursos a serem excluídos
+   * @return {void}
    */
   excluirCurso(cursos: Cursos[]) {
     this.cursos = this.cursos.filter(
@@ -93,9 +91,16 @@ export class CursosService {
     localStorage.setItem('cursos', JSON.stringify(this.cursos));
   }
 
+  /**
+   * Obtém o nome do curso com base no código fornecido.
+   *
+   * @param {string} codigo - O código do curso a ser pesquisado
+   * @return {string | undefined} O nome do curso encontrado, ou undefined se não for encontrado
+   */
   obterNomeDoCurso(codigo: string): string | undefined {
-    const cursoEncontrado = this.cursos.find((c) => c.codigo.toString() === codigo);
+    const cursoEncontrado = this.cursos.find(
+      (c) => c.codigo.toString() === codigo
+    );
     return cursoEncontrado?.nome;
   }
-
 }

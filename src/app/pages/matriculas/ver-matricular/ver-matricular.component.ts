@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { CursoMatricula } from '../interface';
 import { MatriculasService } from '../matriculas.service';
 import { CursosService } from '../../cursos/cursos.service';
+import { Alunos } from '../../../components/tabela/interfaces-tabela';
 
 @Component({
   selector: 'app-ver-matricular',
@@ -10,13 +11,15 @@ import { CursosService } from '../../cursos/cursos.service';
   styleUrls: ['./ver-matricular.component.css'],
 })
 export class VerMatricularComponent implements OnInit {
+  @Input() alunoSelecionado: Alunos | undefined;
+
   dados: CursoMatricula[] = [];
   dataSource = new MatTableDataSource<{
     codigoMatricula: string;
     nomeDoCurso: string;
     dataMatricula: string;
   }>();
-  // Certifique-se de que as propriedades correspondam às colunas na tabela
+
   displayedColumns: string[] = [
     'codigoMatricula',
     'nomeDoCurso',
@@ -26,35 +29,45 @@ export class VerMatricularComponent implements OnInit {
   disabledVoltar: boolean = false;
   disabledExcluir: boolean = true;
 
+  /**
+   * Construtor para criar uma nova instância da classe.
+   *
+   * @param {MatriculasService} matriculasService - instância de MatriculasService
+   * @param {CursosService} cursosService - instância de CursosService
+   */
   constructor(
     private matriculasService: MatriculasService,
     private cursosService: CursosService
   ) {}
 
+  /**
+   * Inicializa o componente e realiza alguma recuperação de dados e registro com base no aluno selecionado.
+   *
+   * @return {void} Sem valor de retorno
+   */
   ngOnInit(): void {
-    if (this.matriculasService.alunoSelecionado) {
+    if (this.matriculasService.alunoSelecionado?.codigo) {
       console.log(
         'Aluno selecionado:',
         this.matriculasService.alunoSelecionado
       );
-      this.dados = this.matriculasService.obterMatriculasPorAluno();
-      console.log('Dados no ngOnInit:', this.dados);
-
-      this.receberDadosEFormatar();
-      this.validar(); // Adiciona esta linha
+      this.dados = this.matriculasService.obterMatriculasPorCodigoAluno(
+        this.matriculasService.alunoSelecionado.codigo.toString()
+      );
     } else {
-      console.log('Nenhum aluno selecionado');
+      console.log('Nenhum aluno selecionado.');
     }
   }
 
+  /**
+   * Recebe dados e formata-los.
+   */
   receberDadosEFormatar(): void {
     const dadosFormatados: {
       codigoMatricula: string;
       nomeDoCurso: string;
       dataMatricula: string;
     }[] = [];
-
-    console.log('Dados para formatar:', this.dados);
 
     for (let i = 0; i < this.dados.length; i++) {
       const matricula = this.dados[i];
@@ -70,12 +83,13 @@ export class VerMatricularComponent implements OnInit {
       });
     }
 
-    console.log('Dados formatados:', dadosFormatados);
-
     this.dataSource.data = dadosFormatados;
-    console.log('this.dataSource.data:', this.dataSource.data);
   }
 
+  /**
+   * Uma função para validar algo.
+   *
+   */
   validar(): void {
     if (this.dataSource.data.length > 0) {
       this.disabledExcluir = false;
@@ -84,10 +98,13 @@ export class VerMatricularComponent implements OnInit {
     }
   }
 
+  /**
+   * Uma descrição da função inteira.
+   *
+   * @param {any} linhasSelecionadas - descrição do parâmetro
+   * @return {void}
+   */
   onExcluirClick(linhasSelecionadas: any): void {
-    console.log('linhasSelecionadas');
-    console.log(linhasSelecionadas);
-
     this.matriculasService.excluirMatricula(linhasSelecionadas);
   }
 }

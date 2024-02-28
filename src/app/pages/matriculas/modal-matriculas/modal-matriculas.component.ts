@@ -27,6 +27,15 @@ export class ModalMatriculasComponent {
   matricula!: CursoMatricula;
   cursos: Cursos[] = this.cursosService.cursos;
 
+  /**
+   * Construtor para inicializar o formulário e injetar os serviços e dependências necessários.
+   *
+   * @param {FormBuilder} fb - o serviço de construção de formulários
+   * @param {CursosService} cursosService - o serviço de cursos
+   * @param {AlunosService} alunosService - o serviço de alunos
+   * @param {MatriculasService} matriculasService - o serviço de matrículas
+   * @param {MatDialog} dialog - o serviço de diálogo do Material
+   */
   constructor(
     private fb: FormBuilder,
     private cursosService: CursosService,
@@ -45,6 +54,12 @@ export class ModalMatriculasComponent {
     });
   }
 
+  /**
+   * Valida a data com base na cursoStartDate.
+   *
+   * @param {any} cursoStartDate - a data de início do curso
+   * @return {ValidatorFn} uma função para validar a data
+   */
   dateValidator(cursoStartDate: any): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const matriculaDate = new Date(control.value);
@@ -57,30 +72,43 @@ export class ModalMatriculasComponent {
     };
   }
 
-onSubmit() {
-  const formValue = this.formMatricula.value;
+  /**
+   * Uma função que trata do envio do formulário. Ela atualiza a matrícula existente, se existir, caso contrário, cria uma nova matrícula. Também registra o valor do formulário no console.
+   */
+  onSubmit() {
+    const formValue = this.formMatricula.value;
 
-  if (this.matricula) {
-    this.matricula = { ...this.matricula, ...formValue };
-    this.matriculasService.atualizarMatricula(this.matricula as CursoMatricula);
-  } else {
-    this.matricula = { ...formValue };
-    const codigoDoCurso = this.formMatricula.get('codigoDoCurso')?.value;
-    this.matriculasService.criarMatricula(
-      this.matricula.codigoDoAluno,
-      codigoDoCurso
-    );
+    if (this.matricula) {
+      this.matricula = { ...this.matricula, ...formValue };
+      this.matriculasService.atualizarMatricula(
+        this.matricula as CursoMatricula
+      );
+    } else {
+      this.matricula = { ...formValue };
+      const codigoDoCurso = this.formMatricula.get('codigoDoCurso')?.value;
+      this.matriculasService.criarMatricula(
+        this.matricula.codigoDoAluno,
+        codigoDoCurso
+      );
+    }
+    console.log(formValue);
   }
-  console.log(formValue);
-}
 
-
+  /**
+   * Método que lida com o evento de fechamento.
+   */
   onClose() {
     if (this.dialog) {
       this.dialog.closeAll();
     }
   }
 
+  /**
+   * Descrição completa da função.
+   *
+   * @param {any} event - descrição do parâmetro
+   * @return {void} sem valor de retorno
+   */
   onCursoChange(event: any) {
     console.log(event);
     const selectedCurso = this.cursos.find((c) => c.codigo === event.value);

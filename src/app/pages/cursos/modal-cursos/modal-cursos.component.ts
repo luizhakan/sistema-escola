@@ -22,11 +22,17 @@ export class ModalCursosComponent implements OnInit {
   cursos: Cursos | null = null;
   modalTitle: string = 'Curso - Editar';
 
+  /**
+   * Construtor para inicializar o diálogo, o serviço de cursos e o construtor de formulários.
+   *
+   * @param {MatDialog} dialog - o serviço de diálogo
+   * @param {CursosService} cursosService - o serviço de cursos
+   * @param {FormBuilder} fb - o serviço de construção de formulários
+   */
   constructor(
     private dialog: MatDialog,
     private cursosService: CursosService,
-    private fb: FormBuilder,
-    @Inject(DOCUMENT) private document: Document
+    private fb: FormBuilder
   ) {
     this.formCurso = this.fb.group({
       nome: ['', Validators.required],
@@ -40,6 +46,10 @@ export class ModalCursosComponent implements OnInit {
     });
   }
 
+  /**
+   * Inicializa o componente com o estado atual do curso e atualiza o formulário se um curso estiver selecionado.
+   *
+   */
   ngOnInit() {
     this.modalTitle = `Curso - ${this.cursosService.estadoAtual}`;
     this.cursos = this.cursosService.cursoSelecionado;
@@ -57,6 +67,10 @@ export class ModalCursosComponent implements OnInit {
     }
   }
 
+  /**
+   * Uma função que lida com a submissão do formulário, atualiza ou cria um curso, recarrega a janela e fecha o formulário.
+   *
+   */
   onSubmit() {
     const formValue = this.formCurso.value;
 

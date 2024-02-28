@@ -4,10 +4,9 @@ import { Alunos } from '../../components/tabela/interfaces-tabela';
 import { ModalAlunosComponent } from './modal-alunos/modal-alunos.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlunosService {
-
   static setEstado(setEstado: any) {
     throw new Error('Method not implemented.');
   }
@@ -19,47 +18,40 @@ export class AlunosService {
   }
   constructor(private dialog: MatDialog) {}
 
-  /**
-   * Estado atual do serviço.
-   */
   estadoAtual: 'Incluir' | 'Alterar' = 'Incluir';
+  alunos: Alunos[] = JSON.parse(localStorage.getItem('alunos') || '[]');
+  alunoSelecionado: Alunos | null = null;
 
   /**
-   * Define o estado atual do serviço.
-   * @param estado O estado a ser definido. Deve ser 'Incluir' ou 'Alterar'.
+   * Define a propriedade estadoAtual para o estado especificado.
+   *
+   * @param {string} estado - o estado a ser definido ('Incluir' ou 'Alterar')
    */
   setEstado(estado: 'Incluir' | 'Alterar') {
     this.estadoAtual = estado;
   }
 
   /**
-   * Curso selecionado.
-   */
-  alunoSelecionado: Alunos | null = null;
-
-  /**
-   * Define o curso selecionado.
-   * @param curso O curso a ser definido.
+   * Define o aluno selecionado.
+   *
+   * @param {Alunos | null} aluno - o aluno a ser definido como selecionado
    */
   setAlunoSelecionado(aluno: Alunos | null) {
     this.alunoSelecionado = aluno;
   }
 
   /**
-   * Abre o modal para adicionar ou editar um curso.
+   * Abre um diálogo com o ModalAlunosComponent.
    */
   openDialog() {
     this.dialog.open(ModalAlunosComponent);
   }
 
   /**
-   * Lista de cursos armazenados na localStorage.
-   */
-  alunos: Alunos[] = JSON.parse(localStorage.getItem('alunos') || '[]');
-
-  /**
-   * Cria um novo curso e o adiciona na localStorage.
-   * @param curso O curso a ser criado.
+   * Cria um novo aluno e armazena no local storage
+   *
+   * @param {Alunos} aluno - o aluno a ser criado
+   * @return {void}
    */
   criarAluno(aluno: Alunos) {
     this.alunos = [...this.alunos, aluno];
@@ -68,8 +60,9 @@ export class AlunosService {
   }
 
   /**
-   * Atualiza um curso na localStorage.
-   * @param curso O curso a ser atualizado.
+   * Atualiza um aluno na lista de alunos.
+   *
+   * @param {Alunos} aluno - o aluno a ser atualizado
    */
   atualizarAluno(aluno: Alunos) {
     const index = this.alunos.findIndex((c) => c.codigo === aluno.codigo);
@@ -80,8 +73,9 @@ export class AlunosService {
   }
 
   /**
-   * Exclui um ou mais cursos da localStorage.
-   * @param cursos Os cursos a serem excluídos.
+   * Exclui os alunos fornecidos da lista de alunos e atualiza o armazenamento local.
+   *
+   * @param {Alunos[]} alunos - A lista de alunos a serem excluídos
    */
   excluirAluno(alunos: Alunos[]) {
     this.alunos = this.alunos.filter(
@@ -91,7 +85,13 @@ export class AlunosService {
     localStorage.setItem('alunos', JSON.stringify(this.alunos));
   }
 
-  obterAlunoPorCodigo(codigo: number) {
-    return this.alunos.find((aluno) => aluno.codigo === codigo);
+  /**
+   * Obtém um aluno pelo código.
+   *
+   * @param {string} codigo - o código do aluno a ser obtido
+   * @return {type} o aluno com o código correspondente, se encontrado
+   */
+  obterAlunoPorCodigo(codigo: string) {
+    return this.alunos.find((aluno) => aluno.codigo.toString() === codigo);
   }
 }

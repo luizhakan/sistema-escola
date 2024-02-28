@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alunos, Cursos } from './interfaces-tabela';
+import { CursoMatricula } from '../../pages/matriculas/interface';
 
 /**
  * TabelaComponent é um componente Angular que exibe uma tabela de dados.
@@ -22,49 +23,21 @@ import { Alunos, Cursos } from './interfaces-tabela';
 export class TabelaComponent implements OnChanges {
   @Output() linhaSelecionada = new EventEmitter();
   @Output() selecionarTodos = new EventEmitter();
+  @Input() displayedColumns: string[] = [];
+  @Input() dataSource = new MatTableDataSource<any>([]);
 
-  getLinhaSelecionadas(): Cursos | Alunos | undefined {
-    const linhaSelecionada = this.selection.selected[0] || undefined;
-    this.linhaSelecionada.emit(linhaSelecionada);
-    return linhaSelecionada;
-  }
-
+  dados: any[] = [];
   alunoSelecionadoCodigo: any = null;
+  displayedColumnsWithSelect: string[] = ['select', ...this.displayedColumns];
+  selection = new SelectionModel<Cursos | Alunos | CursoMatricula>(true, []);
 
-  masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-    } else {
-      this.selection.select(...this.dataSource.data);
-    }
-    this.selecionarTodos.emit(this.selection.selected);
-  }
-
-  /**
-   * Construtor padrão.
-   */
   constructor() {}
 
   /**
-   * Array de dados que serão exibidos na tabela.
+   * Esta função é chamada quando as propriedades de entrada do componente são alteradas.
+   *
+   * @param {SimpleChanges} changes - um objeto de alterações de propriedade
    */
-  dados: any[] = [];
-
-  /**
-   * Array de strings que define as colunas que serão exibidas na tabela.
-   */
-  @Input() displayedColumns: string[] = [];
-
-  /**
-   * Array de strings que define as colunas que serão exibidas na tabela, incluindo a coluna de seleção.
-   */
-  displayedColumnsWithSelect: string[] = ['select', ...this.displayedColumns];
-
-  /**
-   * MatTableDataSource que contém os dados que serão exibidos na tabela.
-   */
-  @Input() dataSource = new MatTableDataSource<any>([]);
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['displayedColumns']) {
       this.displayedColumnsWithSelect = [
@@ -75,13 +48,32 @@ export class TabelaComponent implements OnChanges {
   }
 
   /**
-   * SelectionModel que é usado para controlar a seleção de linhas na tabela.
+   * Retorna a linha selecionada da lista de Alunos, Cursos, CursoMatricula ou retorna undefined se nenhuma estiver selecionada.
+   *
+   * @return {Alunos | Cursos | CursoMatricula | undefined} a linha selecionada da lista, ou undefined se nenhuma estiver selecionada
    */
-  selection = new SelectionModel<Cursos | Alunos>(true, []);
+  getLinhaSelecionadas(): Alunos | Cursos | CursoMatricula | undefined {
+    const linhaSelecionada = this.selection.selected[0] || undefined;
+
+    return linhaSelecionada;
+  }
 
   /**
-   * Método que verifica se todas as linhas na tabela estão selecionadas.
-   * @returns Um booleano indicando se todas as linhas estão selecionadas.
+   * Alterna a seleção de todos os itens na fonte de dados.
+   */
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.selection.select(...this.dataSource.data);
+    }
+    this.selecionarTodos.emit(this.selection.selected);
+  }
+
+  /**
+   * Uma função para verificar se todos os itens estão selecionados.
+   *
+   * @return {boolean} true se todos os itens estiverem selecionados, false caso contrário
    */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -90,7 +82,8 @@ export class TabelaComponent implements OnChanges {
   }
 
   /**
-   * Método que alterna a seleção de todas as linhas na tabela.
+   * Alterna todas as linhas com base no estado de seleção atual.
+   *
    */
   toggleAllRows() {
     if (this.isAllSelected()) {
@@ -101,9 +94,10 @@ export class TabelaComponent implements OnChanges {
   }
 
   /**
-   * Método que retorna a label para a checkbox de uma linha.
-   * @param row A linha para a qual a label será retornada.
-   * @returns Uma string que é a label para a checkbox da linha.
+   * Gera um rótulo para a caixa de seleção com base na linha fornecida.
+   *
+   * @param {Cursos} row - a linha para a qual gerar o rótulo
+   * @return {string} o rótulo gerado para a caixa de seleção
    */
   checkboxLabel(row?: Cursos): string {
     return !row
@@ -114,19 +108,21 @@ export class TabelaComponent implements OnChanges {
   }
 
   /**
-   * Método que converte uma string de camelCase para Title Case.
-   * @param camelCase A string em camelCase que será convertida.
-   * @returns A string convertida em Title Case.
+   * Converte uma string camelCase para maiúsculas iniciais.
+   *
+   * @param {string} camelCase - a string camelCase de entrada
+   * @return {string} a string em maiúsculas iniciais
    */
   camelCaseToTitleCase(camelCase: string): string {
     return camelCase.replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
   }
 
   /**
-   * Método que retorna as linhas selecionadas na tabela.
-   * @returns Um array das linhas selecionadas.
+   * Obtém as linhas selecionadas.
+   *
+   * @return {Cursos | Alunos | CursoMatricula[]} as linhas selecionadas
    */
-  getLinhasSelecionadas(): (Cursos | Alunos)[] {
+  getLinhasSelecionadas(): (Cursos | Alunos | CursoMatricula)[] {
     return this.selection.selected;
   }
 }
